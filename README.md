@@ -154,11 +154,6 @@ versions.json
 - [Versioning](docs/VERSIONING.md)
 - [Changelog](docs/CHANGELOG.md)
 
-## Repository Description
-
-```text
-ReadMark: Track reading time, progress, highlights, and annotations for local Markdown books in Obsidian.
-```
 
 ## Status
 
