@@ -10,11 +10,20 @@ import {
   Setting,
   TFile,
   WorkspaceLeaf,
+  addIcon,
   normalizePath,
   setIcon
 } from "obsidian";
 
 const VIEW_TYPE = "readmark-view";
+const READMARK_ICON_ID = "readmark-icon";
+const READMARK_ICON_SVG = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4h-4.2c0-1.05-.8-1.9-1.8-1.9s-1.8.85-1.8 1.9H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4Z" />
+  <path d="M16 3v7.25l1.7-1.7L21 11.85" />
+  <path d="M7.5 13h4.25" />
+  <path d="M7.5 15.7H13.8" />
+</svg>`;
 const PLUGIN_DIR = ".obsidian/plugins/readmark";
 const SESSION_MERGE_GAP_MS = 5 * 60_000;
 const SHORT_SESSION_MS = 30_000;
@@ -150,12 +159,14 @@ export default class MarkdownReadingTrackerPlugin extends Plugin {
     await this.loadPluginData();
     this.data.lastLoadedAt = new Date().toISOString();
 
+    addIcon(READMARK_ICON_ID, READMARK_ICON_SVG);
+
     this.statusBarEl = this.addStatusBarItem();
     this.statusBarEl.setText("ReadMark loaded");
     this.registerView(VIEW_TYPE, (leaf) => new ReadingTrackerView(leaf, this));
     this.addSettingTab(new ReadingTrackerSettingTab(this.app, this));
 
-    this.addRibbonIcon("book-open", "打开 ReadMark", () => void this.activateView());
+    this.addRibbonIcon(READMARK_ICON_ID, "打开 ReadMark", () => void this.activateView());
 
     this.addCommand({
       id: "open-reading-tracker",
@@ -931,7 +942,7 @@ class ReadingTrackerView extends ItemView {
   }
 
   getIcon(): string {
-    return "book-open";
+    return READMARK_ICON_ID;
   }
 
   async onOpen() {
@@ -1011,7 +1022,7 @@ class ReadingTrackerView extends ItemView {
     const section = root.createDiv({ cls: "mrt-app-header" });
     const titleRow = section.createDiv({ cls: "mrt-title-row" });
     const icon = titleRow.createSpan({ cls: "mrt-title-icon" });
-    setIcon(icon, "book-open");
+    setIcon(icon, READMARK_ICON_ID);
     titleRow.createEl("h3", { text: "ReadMark", cls: "mrt-heading" });
   }
 

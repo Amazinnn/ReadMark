@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.1 - 2026-07-09
+
+### Branding
+
+- Added a custom ReadMark SVG icon based on the rounded page, bookmark, reading marks, and bottom-notch motif.
+- Registered the custom icon with Obsidian and replaced the built-in `book-open` icon in the ribbon, view tab, and sidebar header.
+- Added the icon to the README hero area for clearer GitHub presentation.
+
 ## 0.3.0 - 2026-07-09
 
 ### UI
