@@ -1,0 +1,10 @@
+{
+  "id": "readmark",
+  "name": "ReadMark",
+  "version": "0.2.1",
+  "minAppVersion": "1.5.0",
+  "description": "Track reading time, progress, highlights, and annotations for local Markdown books.",
+  "author": "",
+  "authorUrl": "",
+  "isDesktopOnly": true
+}

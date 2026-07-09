@@ -1,0 +1,11 @@
+node_modules/
+*.log
+
+# Local Obsidian runtime data. These files contain local paths, reading
+# sessions, progress, and excerpts.
+data.json
+books/
+
+# Build/editor noise
+.DS_Store
+*.tsbuildinfo
