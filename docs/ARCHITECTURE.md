@@ -75,13 +75,43 @@ Detected excerpts are stored as source-derived snapshots. When source markup is 
 
 ## Sidebar Structure
 
-The sidebar has three sections:
+The sidebar has three navigable sections plus a compact app header.
 
-- Current Book - reading state, progress, and recent excerpts.
-- Bookshelf - book management and continue-reading actions.
-- Stats - today, current-book, and all-books statistics.
+- App header: only a book icon and the "ReadMark" title. It carries no action buttons or status badge.
+- Current Book: reading state, progress, and recent excerpts. The current tracking state is shown as a small pill at the right side of the hero block.
+- Bookshelf: book management, recent-reading cards, and the "加入当前文件" / "添加本地路径" actions live at the bottom of the book list block. These two actions are only visible while the Bookshelf section is active.
+- Stats: today, current-book, and all-books statistics.
+  - Today: 3 metrics (阅读时长/目标时长, 阅读时段, 书目).
+  - Current Book: 4 metrics (总时长, 进度, 阅读时段, 活跃天数) plus an excerpt-type donut.
+  - All: 3 metrics (总时长, 书目, 活跃+连续).
 
 Charts are rendered with local DOM/SVG code. No chart library is used.
+
+## Visual System
+
+The sidebar uses a compact, light-theme-first palette defined in `styles.css`. All values are baked into CSS; no CSS variables are introduced.
+
+- Accent: `#ff9f6b` (warm orange). Used for progress bars, status pill in `tracking` state, focus borders on hover, and the donut center text.
+- Border: `#e1b437` (mustard yellow). All `.mrt-*` cards and panels use this 1px border.
+- Page background: `#e6e6e6` (gray). Applied to `.mrt-view` so cards float on a slightly darker surface.
+- Card background: `#ffffff`. Cards keep white fills to separate from the gray page.
+- Radius: 10px. Block gap: 6px. Card padding: 8px.
+- Heading: 17px / weight 650. Stat values use a larger variant (clamp 20–30px, weight 850).
+- Hover: 2px upward translation with `0 6px 14px rgba(0,0,0,0.18)` shadow. Border color shifts toward the accent.
+- Status pill colors:
+  - `tracking`: orange border, 18%–32% orange background, 2s linear breathing animation.
+  - `locked`: mustard border, light yellow background.
+  - `paused`: gray border, light gray background, muted text.
+  - `idle`: orange border, 8% orange background.
+- Heatmap 5 levels: pure orange gradient, with white text from level 3 upward for legibility.
+
+## Information Layer
+
+The sidebar surfaces numeric detail that charts and grids would otherwise hide.
+
+- **Hero status pill**: a single pill at the right edge of the current-book hero. Its label is the short form of `TrackingState` (计时中 / 已锁定 / 已暂停 / 空闲). Only the `tracking` state animates, with a 2s linear background pulse.
+- **Hourly chart tooltip**: the SVG adds 24 transparent `<rect>` hotzones covering each hour. `mousemove` resolves the cursor x to an hour index and shows `HH:00 · 时长` in a floating tooltip above the chart. `mouseleave` hides it.
+- **Heatmap tooltip**: each day cell carries `data-day` / `data-ms` / `data-sessions`. `mouseenter` shows `YYYY-MM-DD · X 段 · 时长`; zero-duration days show "无阅读". On hover, the cell paints an orange outline that does not shift layout.
 
 ## Build Output
 

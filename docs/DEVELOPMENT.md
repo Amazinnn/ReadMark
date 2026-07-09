@@ -60,6 +60,9 @@ After building:
    - Bookshelf
    - Stats
 10. Confirm charts render and collapsible sections do not flicker closed.
+11. Confirm the hero status pill at the right of the current-book block changes label and color across `TrackingState` (tracking / locked / paused / idle). Only `tracking` should pulse.
+12. Hover the hourly distribution chart and confirm a tooltip showing `HH:00 · 时长` follows the cursor over each hour.
+13. Hover any day cell in the monthly heatmap and confirm a tooltip showing `日期 · 段数 · 时长` (or `无阅读` for zero-duration days), with an orange outline that does not shift layout.
 
 ## Release Artifacts
 

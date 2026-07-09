@@ -16,7 +16,7 @@ Keep these files in sync for every release:
 Current version:
 
 ```text
-0.2.1
+0.3.0
 ```
 
 Current minimum Obsidian version:
@@ -53,14 +53,14 @@ git status --short --ignored
 9. Tag the release:
 
 ```powershell
-git tag v0.2.1
+git tag v0.3.0
 ```
 
 10. Push commit and tag:
 
 ```powershell
 git push origin main
-git push origin v0.2.1
+git push origin v0.3.0
 ```
 
 11. Create a GitHub Release containing:
@@ -77,7 +77,8 @@ Example:
 
 ```json
 {
-  "0.2.1": "1.5.0"
+  "0.2.1": "1.5.0",
+  "0.3.0": "1.5.0"
 }
 ```
 

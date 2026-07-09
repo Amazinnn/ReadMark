@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>ReadMark UI Playground</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --line:#262d36; --muted:#7d8590; --text:#e6edf3;
+    --accent:#7c5cff;
+    --radius:10px;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+    --gap:12px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .app{display:grid;grid-template-columns:320px 1fr;height:100vh}
+  .controls{overflow:auto;background:var(--panel);border-right:1px solid var(--line);padding:14px}
+  .controls h1{font-size:14px;margin:0 0 4px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+  .controls .hint{font-size:11px;color:var(--muted);margin-bottom:14px;line-height:1.5}
+  details{border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-bottom:8px}
+  details summary{cursor:pointer;font-size:12px;font-weight:700;letter-spacing:.02em}
+  .row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;margin:8px 0;font-size:12px}
+  .row label{color:var(--muted)}
+  .row .v{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--accent)}
+  input[type=range]{width:100%}
+  select,input[type=color]{background:#0b0e13;border:1px solid var(--line);color:var(--text);border-radius:6px;padding:4px 6px;font-size:12px}
+  .swatches{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:6px}
+  .swatch{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+  .swatch input[type=color]{width:24px;height:24px;padding:0;border:1px solid var(--line);background:transparent}
+  .presets{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .presets button{background:#0b0e13;border:1px solid var(--line);color:var(--text);border-radius:999px;padding:4px 10px;font-size:11px;cursor:pointer}
+  .presets button:hover{border-color:var(--accent)}
+  .preview{overflow:auto;padding:18px}
+  .surface{padding:24px;border-radius:14px;min-height:100%}
+  .surface.light{background:#f6f5ee;color:#222}
+  .surface.dark{background:#1c1f25;color:#e6edf3}
+  .surface.mid{background:#2a2118;color:#f3e9d2}
+  .frame-title{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin:0 0 10px}
+  /* ReadMark mock pieces — controlled by inline styles from JS */
+  .mk-view{display:flex;flex-direction:column}
+  .mk-header{display:flex;align-items:center;gap:10px}
+  .mk-icon{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;font-weight:800;background:rgba(124,92,255,.15);color:var(--accent)}
+  .mk-h{font-size:18px;font-weight:800;margin:0}
+  .mk-segmented{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:4px;border:1px solid var(--line);border-radius:10px}
+  .mk-seg{padding:6px;border-radius:6px;text-align:center;font-size:12px;font-weight:700;background:transparent}
+  .mk-seg.on{background:var(--accent);color:#fff}
+  .mk-card,.mk-panel,.mk-hero,.mk-seg-wrap{border:1px solid var(--line)}
+  .mk-hero{padding:14px;border-radius:12px;background:linear-gradient(135deg,rgba(124,92,255,.10),transparent 60%)}
+  .mk-card{padding:12px;border-radius:10px}
+  .mk-title{font-size:15px;font-weight:800;margin:0 0 4px}
+  .mk-path{font-family:ui-monospace,monospace;font-size:11px;opacity:.65}
+  .mk-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+  .mk-stat{padding:10px;border:1px solid var(--line);border-radius:10px}
+  .mk-stat .v{font-size:22px;font-weight:800;line-height:1}
+  .mk-stat .l{font-size:11px;opacity:.7;margin-top:4px;font-weight:700}
+  .mk-progress{height:10px;border-radius:999px;background:rgba(0,0,0,.15);overflow:hidden;margin-top:8px;border:1px solid var(--line)}
+  .mk-fill{height:100%;background:var(--accent);width:42%}
+  .mk-pill{display:inline-block;padding:3px 8px;border:1px solid var(--line);border-radius:999px;font-size:11px;font-weight:700;opacity:.8}
+  .mk-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+  .mk-btn{padding:5px 10px;border:1px solid var(--line);border-radius:8px;font-size:11px;font-weight:700;background:transparent;color:inherit}
+  .mk-btn.on{background:var(--accent);border-color:transparent;color:#fff}
+  .mk-excerpt{padding:10px;border:1px solid var(--line);border-radius:10px}
+  .mk-excerpt .q{border-left:3px solid var(--accent);padding:6px 8px;font-size:12px;line-height:1.5}
+  .mk-meta{font-size:10px;opacity:.65;letter-spacing:.04em;margin-bottom:4px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .prompt{margin-top:14px;padding:10px;border:1px solid var(--line);border-radius:10px;background:#0b0e13;font-size:12px;line-height:1.5;display:flex;gap:10px;align-items:flex-start}
+  .prompt pre{margin:0;flex:1;white-space:pre-wrap;font-family:ui-monospace,monospace;color:#c9d1d9}
+  .prompt button{background:var(--accent);color:#fff;border:0;border-radius:6px;padding:6px 10px;font-size:11px;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="controls">
+    <h1>ReadMark UI Playground</h1>
+    <div class="hint">边调边看。下方 Prompt 实时输出指令,可一键复制。</div>
+
+    <details open>
+      <summary>预设</summary>
+      <div class="presets">
+        <button data-preset="default">现状</button>
+        <button data-preset="soft">柔和</button>
+        <button data-preset="dense">紧凑</button>
+        <button data-preset="bold">高对比</button>
+        <button data-preset="warm">暖色纸质</button>
+      </div>
+    </details>
+
+    <details open>
+      <summary>间距 / 圆角</summary>
+      <div class="row"><label>区块间距 gap</label><span class="v" id="v-gap"></span></div>
+      <input type="range" id="gap" min="6" max="24" step="1">
+      <div class="row"><label>圆角 radius</label><span class="v" id="v-radius"></span></div>
+      <input type="range" id="radius" min="0" max="20" step="1">
+      <div class="row"><label>卡片内边距</label><span class="v" id="v-pad"></span></div>
+      <input type="range" id="pad" min="8" max="22" step="1">
+    </details>
+
+    <details open>
+      <summary>字体 / 层次</summary>
+      <div class="row"><label>大标题 size</label><span class="v" id="v-h1"></span></div>
+      <input type="range" id="h1" min="14" max="24" step="1">
+      <div class="row"><label>正文字号</label><span class="v" id="v-body"></span></div>
+      <input type="range" id="body" min="11" max="16" step="1">
+      <div class="row"><label>字重(标题)</label><span class="v" id="v-weight"></span></div>
+      <input type="range" id="weight" min="500" max="900" step="50">
+    </details>
+
+    <details>
+      <summary>颜色</summary>
+      <div class="swatches">
+        <div class="swatch">强调 <input type="color" id="accent" value="#7c5cff"></div>
+        <div class="swatch">卡片底 <input type="color" id="card" value="#ffffff"></div>
+        <div class="swatch">页面底 <input type="color" id="page" value="#f6f5ee"></div>
+        <div class="swatch">描边 <input type="color" id="border" value="#e7e2d3"></div>
+      </div>
+      <div class="row" style="margin-top:10px"><label>主题底色</label></div>
+      <select id="theme">
+        <option value="light">浅色 / 米白</option>
+        <option value="dark">深色</option>
+        <option value="mid">暖棕</option>
+      </select>
+    </details>
+
+    <details>
+      <summary>交互 / 阴影</summary>
+      <div class="row"><label>悬停位移</label><span class="v" id="v-lift"></span></div>
+      <input type="range" id="lift" min="0" max="6" step="1">
+      <div class="row"><label>阴影强度</label><span class="v" id="v-shadow"></span></div>
+      <input type="range" id="shadow" min="0" max="20" step="1">
+      <div class="row"><label>是否显示徽章</label></div>
+      <select id="badge"><option value="on">显示</option><option value="off">隐藏</option></select>
+    </details>
+  </aside>
+
+  <main class="preview">
+    <div id="surface" class="surface light">
+      <div class="mk-view" id="root">
+        <div class="mk-header mk-card">
+          <div class="mk-icon">📖</div>
+          <h3 class="mk-h">ReadMark</h3>
+        </div>
+        <div class="mk-seg-wrap mk-card" style="margin-top:12px">
+          <div class="mk-segmented">
+            <div class="mk-seg on">当前书本</div>
+            <div class="mk-seg">书架</div>
+            <div class="mk-seg">统计</div>
+          </div>
+        </div>
+
+        <div class="mk-hero" style="margin-top:12px">
+          <div class="mk-title">深入理解计算机系统</div>
+          <div class="mk-path">D:\books\csapp.md</div>
+          <div class="mk-row">
+            <span class="mk-pill">📈 跟踪中</span>
+            <span class="mk-pill">进度 42%</span>
+            <span class="mk-pill">摘录 18</span>
+          </div>
+        </div>
+
+        <div class="mk-stats">
+          <div class="mk-stat"><div class="v">42%</div><div class="l">阅读进度</div></div>
+          <div class="mk-stat"><div class="v">1h 23m</div><div class="l">今日阅读</div></div>
+          <div class="mk-stat"><div class="v">12</div><div class="l">高亮</div></div>
+          <div class="mk-stat"><div class="v">6</div><div class="l">批注</div></div>
+        </div>
+
+        <div class="mk-card" style="margin-top:10px">
+          <div class="mk-meta">阅读进度</div>
+          <div class="mk-progress"><div class="mk-fill"></div></div>
+        </div>
+
+        <div class="grid2" style="margin-top:12px">
+          <div class="mk-card">
+            <div class="mk-meta">书架 · 继续阅读</div>
+            <div class="mk-title">设计数据密集型应用</div>
+            <div class="mk-path">D:\books\ddia.md</div>
+            <div class="mk-row">
+              <span class="mk-pill">进度 78%</span>
+              <button class="mk-btn">打开</button>
+              <button class="mk-btn">改路径</button>
+            </div>
+          </div>
+          <div class="mk-card">
+            <div class="mk-meta">书架 · 继续阅读</div>
+            <div class="mk-title">代码大全(第 2 版)</div>
+            <div class="mk-path">D:\books\ccc.md</div>
+            <div class="mk-row">
+              <span class="mk-pill">进度 12%</span>
+              <button class="mk-btn">打开</button>
+              <button class="mk-btn">改路径</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mk-card" style="margin-top:12px">
+          <div class="mk-meta">最新摘录</div>
+          <div class="mk-excerpt">
+            <div class="mk-meta">高亮 · 14:22</div>
+            <div class="q">存储器层级结构的核心思想是,上层存储作为下层存储的高速缓存。</div>
+          </div>
+          <div class="mk-excerpt" style="margin-top:8px">
+            <div class="mk-meta">批注 · 昨天</div>
+            <div class="q">这里实际上是把局部性原理从硬件层下沉到了编程模型里。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prompt">
+      <pre id="prompt">调整 ReadMark 侧栏 UI。</pre>
+      <button id="copy">复制</button>
+    </div>
+  </main>
+</div>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const DEFAULTS = {
+    gap:12, radius:10, pad:12,
+    h1:18, body:12, weight:800,
+    accent:"#7c5cff", card:"#ffffff", page:"#f6f5ee", border:"#e7e2d3",
+    lift:1, shadow:6, theme:"light", badge:"on"
+  };
+  const state = { ...DEFAULTS };
+
+  function applyState(){
+    document.documentElement.style.setProperty('--radius', state.radius+'px');
+    document.documentElement.style.setProperty('--accent', state.accent);
+
+    // surface
+    const s = $('surface');
+    s.classList.remove('light','dark','mid');
+    s.classList.add(state.theme);
+    s.style.background = state.theme === 'light' ? state.page : '';
+    s.style.color = state.theme === 'light' ? '#222' : (state.theme === 'dark' ? '#e6edf3' : '#f3e9d2');
+
+    // root
+    const root = $('root');
+    root.style.gap = state.gap + 'px';
+
+    // cards / panels
+    root.querySelectorAll('.mk-card,.mk-seg-wrap,.mk-hero,.mk-stat,.mk-excerpt').forEach(el => {
+      el.style.borderRadius = state.radius + 'px';
+      el.style.padding = state.pad + 'px';
+      el.style.borderColor = state.border;
+      el.style.background = state.card;
+      el.style.color = s.style.color;
+      const sh = state.shadow;
+      el.style.boxShadow = sh > 0
+        ? `0 ${Math.max(1, Math.round(sh/4))}px ${sh}px rgba(0,0,0,${Math.min(0.25, sh/60).toFixed(2)})`
+        : 'none';
+      el.style.transition = 'transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease';
+    });
+
+    // hero gradient
+    root.querySelectorAll('.mk-hero').forEach(el => {
+      el.style.background = `linear-gradient(135deg, ${hexA(state.accent,0.12)}, transparent 60%), ${state.card}`;
+    });
+
+    // titles / body
+    root.querySelectorAll('.mk-h').forEach(el => {
+      el.style.fontSize = state.h1 + 'px';
+      el.style.fontWeight = state.weight;
+    });
+    root.querySelectorAll('.mk-title').forEach(el => {
+      el.style.fontSize = Math.max(state.h1 - 3, 12) + 'px';
+      el.style.fontWeight = state.weight;
+    });
+    root.querySelectorAll('.mk-meta,.mk-pill,.mk-path,.mk-btn,.mk-seg,.mk-stat .l').forEach(el => {
+      el.style.fontSize = Math.max(state.body - 1, 10) + 'px';
+    });
+    root.querySelectorAll('.mk-stat .v').forEach(el => {
+      el.style.fontSize = Math.max(state.h1 + 4, 16) + 'px';
+      el.style.fontWeight = state.weight;
+    });
+    root.querySelectorAll('.mk-fill').forEach(el => { el.style.background = state.accent; });
+    root.querySelectorAll('.mk-seg.on').forEach(el => { el.style.background = state.accent; });
+    root.querySelectorAll('.mk-excerpt .q').forEach(el => { el.style.borderLeftColor = state.accent; });
+
+    // pill accent ring
+    root.querySelectorAll('.mk-pill').forEach(el => {
+      el.style.borderColor = state.border;
+    });
+
+    // badges toggle
+    root.querySelectorAll('.mk-pill').forEach(el => {
+      el.style.display = state.badge === 'on' ? 'inline-block' : 'none';
+    });
+
+    // labels
+    $('v-gap').textContent = state.gap + 'px';
+    $('v-radius').textContent = state.radius + 'px';
+    $('v-pad').textContent = state.pad + 'px';
+    $('v-h1').textContent = state.h1 + 'px';
+    $('v-body').textContent = state.body + 'px';
+    $('v-weight').textContent = state.weight;
+    $('v-lift').textContent = state.lift + 'px';
+    $('v-shadow').textContent = state.shadow;
+
+    updatePrompt();
+  }
+
+  function hexA(hex, a){
+    const v = hex.replace('#','');
+    const r = parseInt(v.slice(0,2),16), g = parseInt(v.slice(2,4),16), b = parseInt(v.slice(4,6),16);
+    return `rgba(${r},${g},${b},${a})`;
+  }
+
+  function updatePrompt(){
+    const parts = [];
+    if (state.gap !== DEFAULTS.gap) parts.push(`区块间距 ${state.gap}px`);
+    if (state.radius !== DEFAULTS.radius) parts.push(`圆角 ${state.radius}px`);
+    if (state.pad !== DEFAULTS.pad) parts.push(`卡片内边距 ${state.pad}px`);
+    if (state.h1 !== DEFAULTS.h1) parts.push(`大标题 ${state.h1}px`);
+    if (state.body !== DEFAULTS.body) parts.push(`正文字号 ${state.body}px`);
+    if (state.weight !== DEFAULTS.weight) parts.push(`标题字重 ${state.weight}`);
+    if (state.accent !== DEFAULTS.accent) parts.push(`主色 ${state.accent}`);
+    if (state.card !== DEFAULTS.card) parts.push(`卡片底色 ${state.card}`);
+    if (state.page !== DEFAULTS.page) parts.push(`页面底色 ${state.page}`);
+    if (state.border !== DEFAULTS.border) parts.push(`描边色 ${state.border}`);
+    if (state.lift !== DEFAULTS.lift) parts.push(`悬停上移 ${state.lift}px`);
+    if (state.shadow !== DEFAULTS.shadow) parts.push(state.shadow > 12 ? `较深的阴影` : (state.shadow > 4 ? `中等阴影` : (state.shadow > 0 ? `轻微阴影` : `无阴影`)));
+    if (state.badge === 'off') parts.push(`隐藏状态徽章`);
+    if (state.theme !== DEFAULTS.theme) parts.push(`底色主题:${state.theme}`);
+
+    const txt = parts.length
+      ? `把 ReadMark 侧栏调整成:${parts.join('; ')}。作用到 styles.css,主要改动 .mrt-* 类,保留原有 DOM 类名。`
+      : `调整 ReadMark 侧栏 UI(使用当前默认风格)。`;
+    $('prompt').textContent = txt;
+  }
+
+  // Bind controls
+  ['gap','radius','pad','h1','body','weight','lift','shadow'].forEach(k => {
+    const el = $(k);
+    el.value = state[k];
+    el.addEventListener('input', () => { state[k] = Number(el.value); applyState(); });
+  });
+  ['accent','card','page','border'].forEach(k => {
+    const el = $(k);
+    el.value = state[k];
+    el.addEventListener('input', () => { state[k] = el.value; applyState(); });
+  });
+  ['theme','badge'].forEach(k => {
+    const el = $(k);
+    el.value = state[k];
+    el.addEventListener('change', () => { state[k] = el.value; applyState(); });
+  });
+
+  // Presets
+  const PRESETS = {
+    default: {...DEFAULTS},
+    soft:   { gap:16, radius:14, pad:14, h1:18, body:12, weight:700, accent:"#8b7cff", card:"#ffffff", page:"#f4f1ea", border:"#e8e2d2", lift:2, shadow:10, theme:"light", badge:"on" },
+    dense:  { gap:8,  radius:8,  pad:10, h1:16, body:12, weight:750, accent:"#6c8cff", card:"#ffffff", page:"#fbfbfb", border:"#e6e6e6", lift:1, shadow:4, theme:"light", badge:"on" },
+    bold:   { gap:14, radius:6,  pad:14, h1:22, body:13, weight:900, accent:"#ff5c8a", card:"#0f1115", page:"#1a1d23", border:"#2a2f38", lift:3, shadow:14, theme:"dark", badge:"on" },
+    warm:   { gap:14, radius:4,  pad:14, h1:20, body:13, weight:800, accent:"#a06a3c", card:"#fbf4e6", page:"#ece1c8", border:"#c9b896", lift:1, shadow:6, theme:"mid", badge:"on" }
+  };
+  document.querySelectorAll('.presets button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const p = PRESETS[btn.dataset.preset];
+      Object.assign(state, p);
+      ['gap','radius','pad','h1','body','weight','lift','shadow'].forEach(k => $(k).value = state[k]);
+      ['accent','card','page','border'].forEach(k => $(k).value = state[k]);
+      ['theme','badge'].forEach(k => $(k).value = state[k]);
+      applyState();
+    });
+  });
+
+  $('copy').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText($('prompt').textContent); $('copy').textContent = '已复制'; setTimeout(() => $('copy').textContent = '复制', 1200); } catch(e) {}
+  });
+
+  applyState();
+</script>
+</body>
+</html>

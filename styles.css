@@ -1,8 +1,9 @@
 .mrt-view {
+  background: #e6e6e6;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 12px;
+  gap: 6px;
+  padding: 6px;
 }
 
 .mrt-app-header,
@@ -16,19 +17,18 @@
 .mrt-progress-wrap,
 .mrt-type-card,
 .mrt-details {
-  background: var(--background-primary);
-  border: 1px solid var(--background-modifier-border);
-  border-radius: 8px;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  background: #ffffff;
+  border: 1px solid #e1b437;
+  border-radius: 10px;
 }
 
 .mrt-app-header,
 .mrt-panel {
-  padding: 14px;
+  padding: 8px;
 }
 
 .mrt-section {
-  padding: 12px;
+  padding: 8px;
 }
 
 .mrt-title-row,
@@ -42,10 +42,10 @@
 
 .mrt-title-icon {
   align-items: center;
-  background: var(--background-secondary);
-  border: 1px solid var(--background-modifier-border);
-  border-radius: 8px;
-  color: var(--interactive-accent);
+  background: #ffffff;
+  border: 1px solid #e1b437;
+  border-radius: 10px;
+  color: #ff9f6b;
   display: inline-flex;
   flex: 0 0 auto;
   height: 34px;
@@ -56,8 +56,8 @@
 .mrt-heading {
   color: var(--text-normal);
   flex: 1 1 auto;
-  font-size: var(--font-ui-large);
-  font-weight: 800;
+  font-size: 17px;
+  font-weight: 650;
   letter-spacing: 0;
   line-height: 1.15;
   margin: 0;
@@ -154,24 +154,72 @@
 }
 
 .mrt-segment.is-active {
-  background: var(--interactive-accent);
-  color: var(--text-on-accent);
+  background: #ff9f6b;
+  color: #fff;
 }
 
 .mrt-current-hero {
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--interactive-accent) 10%, transparent), transparent 55%),
-    var(--background-secondary);
-  border: 1px solid var(--background-modifier-border);
-  border-radius: 8px;
+    linear-gradient(135deg, rgba(255, 159, 107, 0.10), transparent 55%),
+    #ffffff;
+  border: 1px solid #e1b437;
+  border-radius: 10px;
   margin-top: 10px;
-  padding: 14px;
+  padding: 8px;
+}
+
+.mrt-status-pill {
+  align-items: center;
+  border-radius: 999px;
+  border-style: solid;
+  border-width: 1px;
+  color: var(--text-normal);
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 4px 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: background-color 600ms ease;
+}
+
+.mrt-status-pill[data-mrt-tracking-state="tracking"] {
+  background: rgba(255, 159, 107, 0.18);
+  border-color: #ff9f6b;
+  animation: mrt-status-pulse 2000ms linear infinite;
+}
+
+.mrt-status-pill[data-mrt-tracking-state="locked"] {
+  background: rgba(225, 180, 55, 0.12);
+  border-color: #e1b437;
+}
+
+.mrt-status-pill[data-mrt-tracking-state="paused"] {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: #b8b8b8;
+  color: var(--text-muted);
+}
+
+.mrt-status-pill[data-mrt-tracking-state="idle"] {
+  background: rgba(255, 159, 107, 0.08);
+  border-color: #ff9f6b;
+}
+
+@keyframes mrt-status-pulse {
+  0%   { background: rgba(255, 159, 107, 0.18); }
+  50%  { background: rgba(255, 159, 107, 0.32); }
+  100% { background: rgba(255, 159, 107, 0.18); }
 }
 
 .mrt-title {
   color: var(--text-normal);
-  font-size: var(--font-ui-large);
-  font-weight: 800;
+  font-size: 17px;
+  font-weight: 650;
   letter-spacing: 0;
   line-height: 1.2;
   min-width: 0;
@@ -195,8 +243,8 @@
 }
 
 .mrt-status-badge.is-tracking {
-  background: color-mix(in srgb, var(--interactive-accent) 18%, var(--background-primary));
-  border-color: color-mix(in srgb, var(--interactive-accent) 45%, var(--background-modifier-border));
+  background: rgba(255, 159, 107, 0.18);
+  border-color: #ff9f6b;
   color: var(--text-normal);
 }
 
@@ -219,11 +267,11 @@
 }
 
 .mrt-stat-card {
-  background: var(--background-primary);
-  border: 1px solid var(--background-modifier-border);
-  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #e1b437;
+  border-radius: 10px;
   min-width: 0;
-  padding: 12px;
+  padding: 8px;
 }
 
 .mrt-stat-value {
@@ -244,19 +292,19 @@
 
 .mrt-progress-wrap {
   margin-top: 10px;
-  padding: 12px;
+  padding: 8px;
 }
 
 .mrt-progress-track {
-  background: var(--background-modifier-hover);
-  border: 1px solid var(--background-modifier-border);
+  background: #f0eedf;
+  border: 1px solid #e1b437;
   border-radius: 999px;
   height: 12px;
   overflow: hidden;
 }
 
 .mrt-progress-fill {
-  background: var(--interactive-accent);
+  background: #ff9f6b;
   height: 100%;
   transition: width 180ms ease-out;
 }
@@ -269,7 +317,7 @@
 .mrt-excerpt,
 .mrt-empty-card {
   margin-bottom: 10px;
-  padding: 13px;
+  padding: 8px;
 }
 
 .mrt-clickable {
@@ -279,9 +327,9 @@
 
 .mrt-clickable:hover,
 .mrt-excerpt:hover {
-  border-color: color-mix(in srgb, var(--interactive-accent) 70%, var(--background-modifier-border));
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
-  transform: translateY(-1px);
+  border-color: #ff9f6b;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+  transform: translateY(-2px);
 }
 
 .mrt-excerpt-type {
@@ -293,7 +341,7 @@
 }
 
 .mrt-excerpt-text {
-  border-left: 4px solid var(--interactive-accent);
+  border-left: 4px solid #ff9f6b;
   color: var(--text-normal);
   font-size: var(--font-ui-small);
   line-height: 1.55;
@@ -304,7 +352,8 @@
 
 .mrt-chart {
   margin-top: 12px;
-  padding: 12px;
+  padding: 8px;
+  position: relative;
 }
 
 .mrt-chart-meta {
@@ -319,24 +368,54 @@
   height: 150px;
   margin-top: 6px;
   overflow: visible;
+  position: relative;
   width: 100%;
 }
 
 .mrt-hour-grid {
-  stroke: var(--background-modifier-border);
+  stroke: #e1b437;
   stroke-width: 0.5;
 }
 
 .mrt-hour-area {
-  fill: color-mix(in srgb, var(--interactive-accent) 18%, transparent);
+  fill: rgba(255, 159, 107, 0.18);
 }
 
 .mrt-hour-line {
   fill: none;
-  stroke: var(--interactive-accent);
+  stroke: #ff9f6b;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 2.4;
+}
+
+.mrt-hour-hotzone {
+  fill: transparent;
+  cursor: crosshair;
+}
+
+.mrt-hour-tooltip,
+.mrt-month-tooltip {
+  background: #ffffff;
+  border: 1px solid #ff9f6b;
+  border-radius: 6px;
+  color: var(--text-normal);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.3;
+  opacity: 0;
+  padding: 4px 8px;
+  pointer-events: none;
+  position: absolute;
+  transform: translate(-50%, -100%);
+  transition: opacity 120ms ease;
+  white-space: nowrap;
+  z-index: 5;
+}
+
+.mrt-hour-tooltip.is-visible,
+.mrt-month-tooltip.is-visible {
+  opacity: 1;
 }
 
 .mrt-hour-axis {
@@ -350,7 +429,7 @@
 
 .mrt-type-card {
   margin-top: 10px;
-  padding: 12px;
+  padding: 8px;
 }
 
 .mrt-type-body {
@@ -363,7 +442,7 @@
 .mrt-donut {
   align-items: center;
   aspect-ratio: 1;
-  border: 1px solid var(--background-modifier-border);
+  border: 1px solid #e1b437;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -372,8 +451,8 @@
 }
 
 .mrt-donut::after {
-  background: var(--background-primary);
-  border: 1px solid var(--background-modifier-border);
+  background: #ffffff;
+  border: 1px solid #e1b437;
   border-radius: 50%;
   content: "";
   height: 58%;
@@ -414,15 +493,15 @@
 }
 
 .mrt-type-dot.type-0 {
-  background: var(--interactive-accent);
+  background: #ff9f6b;
 }
 
 .mrt-type-dot.type-1 {
-  background: var(--text-accent);
+  background: #e1b437;
 }
 
 .mrt-type-dot.type-2 {
-  background: #8f6f4f;
+  background: #b0b0b0;
 }
 
 .mrt-type-name,
@@ -448,6 +527,10 @@
   grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
+.mrt-month-heatmap {
+  position: relative;
+}
+
 .mrt-month-weekdays {
   color: var(--text-muted);
   font-size: var(--font-ui-smaller);
@@ -465,11 +548,13 @@
 
 .mrt-month-cell {
   align-items: center;
-  background: var(--background-secondary);
-  border: 1px solid var(--background-modifier-border);
+  background: #ffffff;
+  border: 1px solid #e1b437;
   color: var(--text-normal);
   display: flex;
   justify-content: center;
+  position: relative;
+  transition: outline-color 120ms ease, border-color 120ms ease;
 }
 
 .mrt-month-day {
@@ -479,30 +564,37 @@
 }
 
 .mrt-month-cell.level-0 {
-  background: var(--background-primary);
+  background: #ffffff;
 }
 
 .mrt-month-cell.level-1 {
-  background: #eadfce;
+  background: rgba(255, 159, 107, 0.18);
 }
 
 .mrt-month-cell.level-2 {
-  background: #d3b98f;
+  background: rgba(255, 159, 107, 0.42);
 }
 
 .mrt-month-cell.level-3 {
-  background: #a98254;
-  color: #fffaf2;
+  background: rgba(255, 159, 107, 0.72);
+  color: #fff;
 }
 
 .mrt-month-cell.level-4 {
-  background: #6f4f2f;
-  color: #fffaf2;
+  background: #ff9f6b;
+  color: #fff;
+}
+
+.mrt-month-cell:hover {
+  border-color: #ff9f6b;
+  outline: 2px solid #ff9f6b;
+  outline-offset: -2px;
+  z-index: 1;
 }
 
 .mrt-details {
   margin-top: 12px;
-  padding: 10px 12px;
+  padding: 8px 8px;
 }
 
 .mrt-details > summary {
@@ -510,8 +602,12 @@
   cursor: pointer;
   font-size: var(--font-ui-small);
   font-weight: 800;
-  list-style-position: outside;
+  list-style: none;
   margin-bottom: 8px;
+}
+
+.mrt-details > summary::-webkit-details-marker {
+  display: none;
 }
 
 .mrt-record-row {

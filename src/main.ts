@@ -178,11 +178,6 @@ export default class MarkdownReadingTrackerPlugin extends Plugin {
       callback: () => void this.continueLastBook()
     });
     this.addCommand({
-      id: "generate-today-reading-summary",
-      name: "生成今日阅读摘要",
-      callback: () => void this.generateTodaySummary()
-    });
-    this.addCommand({
       id: "pause-resume-reading-tracking",
       name: "暂停或继续自动计时",
       callback: () => void this.toggleTracking()
@@ -521,59 +516,6 @@ export default class MarkdownReadingTrackerPlugin extends Plugin {
     if (max <= 0) return true;
     scroller.scrollTop = (clamp(record.progressPercent, 0, 100) / 100) * max;
     return true;
-  }
-
-  async generateTodaySummary() {
-    const today = todayKey();
-    const lines: string[] = [
-      `# 今日阅读摘要 - ${today}`,
-      "",
-      "由 ReadMark 生成。",
-      ""
-    ];
-
-    let totalMs = 0;
-    let activeBooks = 0;
-    let excerptCount = 0;
-
-    for (const book of this.data.books) {
-      const record = await this.getRecord(book);
-      const sessions = sessionsForDay(record, today);
-      const excerpts = record.excerpts.filter((excerpt) => !excerpt.baseline && sameDay(excerpt.capturedAt, today));
-      if (sessions.length === 0 && excerpts.length === 0) continue;
-
-      activeBooks += sessions.length > 0 ? 1 : 0;
-      const duration = sessions.reduce((sum, session) => sum + session.durationMs, 0);
-      totalMs += duration;
-      excerptCount += excerpts.length;
-
-      lines.push(`## ${book.title}`);
-      lines.push("");
-      lines.push(`- 本地路径：\`${book.absolutePath}\``);
-      lines.push(`- 阅读时长：${formatDuration(duration)}`);
-      lines.push(`- 阅读进度：${formatPercent(record.progressPercent)}`);
-      lines.push("");
-
-      for (const excerpt of excerpts) {
-        const type = formatExcerptType(excerpt.type);
-        lines.push(`> [!quote] ${type} · ${timeOnly(excerpt.capturedAt)}`);
-        for (const line of excerpt.text.split(/\r?\n/)) {
-          lines.push(`> ${line}`);
-        }
-        lines.push("");
-      }
-    }
-
-    lines.splice(4, 0, `- 总阅读时长：${formatDuration(totalMs)}`, `- 阅读书目：${activeBooks}`, `- 新摘录：${excerptCount}`, "");
-    if (totalMs === 0 && excerptCount === 0) {
-      lines.push("今天还没有捕捉到阅读活动。");
-      lines.push("");
-    }
-
-    await this.ensureVaultFolder(this.trackerSettings.summaryFolder);
-    const outputPath = normalizePath(`${cleanVaultPath(this.trackerSettings.summaryFolder)}/${today}.md`);
-    await this.app.vault.adapter.write(outputPath, lines.join("\n"));
-    new Notice(`已生成今日阅读摘要：${outputPath}`);
   }
 
   async toggleTracking() {
@@ -1071,19 +1013,6 @@ class ReadingTrackerView extends ItemView {
     const icon = titleRow.createSpan({ cls: "mrt-title-icon" });
     setIcon(icon, "book-open");
     titleRow.createEl("h3", { text: "ReadMark", cls: "mrt-heading" });
-    titleRow.createSpan({ text: trackingStateLabel(this.plugin.getTrackingState()), cls: "mrt-status-badge", attr: { "data-mrt-tracking-state": "true" } });
-
-    const toolbar = section.createDiv({ cls: "mrt-toolbar" });
-    this.createToolButton(toolbar, "plus", "加入当前文件", () => void this.plugin.addCurrentFileToBookshelf());
-    this.createToolButton(toolbar, "folder-plus", "添加本地路径", () => this.plugin.openPathModal());
-    this.createToolButton(toolbar, "file-output", "生成今日摘要", () => void this.plugin.generateTodaySummary());
-  }
-
-  createToolButton(root: HTMLElement, iconName: string, label: string, onClick: () => void) {
-    const button = root.createEl("button", { cls: "mrt-icon-button", attr: { "aria-label": label, title: label } });
-    setIcon(button.createSpan({ cls: "mrt-button-icon" }), iconName);
-    button.createSpan({ text: label, cls: "mrt-button-label" });
-    button.addEventListener("click", onClick);
   }
 
   renderMainNav(root: HTMLElement) {
@@ -1135,6 +1064,9 @@ class ReadingTrackerView extends ItemView {
     const hero = section.createDiv({ cls: "mrt-current-hero" });
     const heroTop = hero.createDiv({ cls: "mrt-hero-top" });
     heroTop.createDiv({ text: book.title, cls: "mrt-title" });
+    const state = this.plugin.getTrackingState();
+    const pill = heroTop.createDiv({ cls: "mrt-status-pill", attr: { "data-mrt-tracking-state": state } });
+    pill.createSpan({ text: trackingStateShortLabel(state), cls: "mrt-status-label" });
     hero.createDiv({ text: displayBookPath(book), cls: "mrt-path" });
     if (file && !activeBook) {
       const status = hero.createDiv({ cls: "mrt-metrics" });
@@ -1180,6 +1112,10 @@ class ReadingTrackerView extends ItemView {
       actions.createEl("button", { text: "改路径" }).addEventListener("click", () => this.plugin.openPathModal(book));
       actions.createEl("button", { text: "移除" }).addEventListener("click", () => void this.plugin.removeBook(book.id));
     }
+
+    const actions = section.createDiv({ cls: "mrt-actions" });
+    actions.createEl("button", { text: "加入当前文件" }).addEventListener("click", () => void this.plugin.addCurrentFileToBookshelf());
+    actions.createEl("button", { text: "添加本地路径" }).addEventListener("click", () => this.plugin.openPathModal());
   }
 
   async renderRecent(root: HTMLElement) {
@@ -1235,12 +1171,9 @@ class ReadingTrackerView extends ItemView {
     const goalMs = this.plugin.trackerSettings.dailyGoalMinutes * 60_000;
 
     this.renderMetricGrid(root, [
-      ["阅读", formatDuration(todayMs), "stats-today-total"],
-      ["目标", formatPercent(goalMs === 0 ? 100 : (todayMs / goalMs) * 100), "stats-today-goal"],
+      ["阅读时长/目标时长", `${formatDuration(todayMs)}/${formatDuration(goalMs)}`, undefined],
       ["阅读时段", String(todaySessions), "stats-today-sessions"],
-      ["书目", String(touchedBooks), "stats-today-books"],
-      ["高亮", String(todayExcerpts.filter((excerpt) => excerpt.type === "highlight").length), "stats-today-highlights"],
-      ["批注", String(todayExcerpts.filter((excerpt) => excerpt.type === "annotation").length), "stats-today-annotations"]
+      ["书目", String(touchedBooks), "stats-today-books"]
     ]);
     this.renderProgressBar(root, goalMs === 0 ? 100 : (todayMs / goalMs) * 100, "今日目标", "stats-today-goal");
     this.renderHourlyChart(root, records, today);
@@ -1258,13 +1191,8 @@ class ReadingTrackerView extends ItemView {
     const goalPercent = goalMs === 0 ? 100 : (todayMs / goalMs) * 100;
     this.updateProgressDynamic("stats-today-goal", goalPercent);
     return {
-      "stats-today-total": formatDuration(todayMs),
-      "stats-today-goal": formatPercent(goalPercent),
-      "stats-today-goal-label": `今日目标 · ${formatPercent(goalPercent)}`,
       "stats-today-sessions": String(todaySessions),
-      "stats-today-books": String(touchedBooks),
-      "stats-today-highlights": String(todayExcerpts.filter((excerpt) => excerpt.type === "highlight").length),
-      "stats-today-annotations": String(todayExcerpts.filter((excerpt) => excerpt.type === "annotation").length)
+      "stats-today-books": String(touchedBooks)
     };
   }
 
@@ -1277,27 +1205,19 @@ class ReadingTrackerView extends ItemView {
       "stats-book-progress": formatPercent(record.progressPercent),
       "stats-book-progress-label": `阅读进度 · ${formatPercent(record.progressPercent)}`,
       "stats-book-sessions": String(visibleSessions(record).length),
-      "stats-book-days": String(activeDays.size),
-      "stats-book-highlights": String(record.cachedCounts.highlights),
-      "stats-book-annotations": String(record.cachedCounts.annotations)
+      "stats-book-days": String(activeDays.size)
     };
   }
 
   getAllStatsValues(pairs: Array<{ book: BookIndex; record: BookRecord; status: BookStatus }>): Record<string, string> {
     const records = pairs.map((pair) => pair.record);
     const totalMs = records.reduce((sum, record) => sum + record.totalReadMs, 0);
-    const available = pairs.filter((pair) => pair.status.exists).length;
     const activeDays = new Set(records.flatMap((record) => record.sessions.filter((session) => session.durationMs >= SHORT_SESSION_MS).map((session) => dateKey(new Date(session.startedAt)))));
     const streak = calculateStreak(records);
-    const highlights = records.reduce((sum, record) => sum + record.cachedCounts.highlights, 0);
-    const annotations = records.reduce((sum, record) => sum + record.cachedCounts.annotations, 0);
     return {
       "stats-all-total": formatDuration(totalMs),
       "stats-all-books": String(pairs.length),
-      "stats-all-available": `${available}/${pairs.length}`,
-      "stats-all-days": String(activeDays.size),
-      "stats-all-streak": `${streak} 天`,
-      "stats-all-excerpts": String(highlights + annotations)
+      "stats-all-days": `${activeDays.size}/${streak}`
     };
   }
 
@@ -1323,9 +1243,7 @@ class ReadingTrackerView extends ItemView {
       ["总时长", formatDuration(record.totalReadMs), "stats-book-total"],
       ["进度", formatPercent(record.progressPercent), "stats-book-progress"],
       ["阅读时段", String(visibleSessions(record).length), "stats-book-sessions"],
-      ["活跃天", String(activeDays.size), "stats-book-days"],
-      ["高亮", String(record.cachedCounts.highlights), "stats-book-highlights"],
-      ["批注", String(record.cachedCounts.annotations), "stats-book-annotations"]
+      ["活跃天数", String(activeDays.size), "stats-book-days"]
     ]);
     this.renderProgressBar(root, record.progressPercent, "阅读进度", "stats-book-progress");
     this.renderExcerptTypeChart(root, [{ label: "高亮", value: record.cachedCounts.highlights }, { label: "批注", value: record.cachedCounts.annotations }]);
@@ -1336,7 +1254,6 @@ class ReadingTrackerView extends ItemView {
     const pairs = await this.getBookPairs();
     const records = pairs.map((pair) => pair.record);
     const totalMs = records.reduce((sum, record) => sum + record.totalReadMs, 0);
-    const available = pairs.filter((pair) => pair.status.exists).length;
     const activeDays = new Set(records.flatMap((record) => record.sessions.filter((session) => session.durationMs >= SHORT_SESSION_MS).map((session) => dateKey(new Date(session.startedAt)))));
     const streak = calculateStreak(records);
     const highlights = records.reduce((sum, record) => sum + record.cachedCounts.highlights, 0);
@@ -1345,10 +1262,7 @@ class ReadingTrackerView extends ItemView {
     this.renderMetricGrid(root, [
       ["总时长", formatDuration(totalMs), "stats-all-total"],
       ["书目", String(pairs.length), "stats-all-books"],
-      ["可用", `${available}/${pairs.length}`, "stats-all-available"],
-      ["活跃天", String(activeDays.size), "stats-all-days"],
-      ["连续", `${streak} 天`, "stats-all-streak"],
-      ["摘录", String(highlights + annotations), "stats-all-excerpts"]
+      ["活跃天数/连续天数", `${activeDays.size}/${streak}`, "stats-all-days"]
     ]);
     this.renderExcerptTypeChart(root, [{ label: "高亮", value: highlights }, { label: "批注", value: annotations }]);
     this.renderMonthHeatmap(root, records);
@@ -1416,7 +1330,11 @@ class ReadingTrackerView extends ItemView {
     section.createDiv({ text: "今日时段分布", cls: "mrt-module-title" });
     const peak = Math.max(...buckets);
     section.createDiv({ text: peak > 0 ? `峰值 ${formatDuration(peak)}/小时` : "今日暂无阅读时段", cls: "mrt-chart-meta" });
-    section.appendChild(renderSmoothHourlySvg(buckets, max));
+    const svg = renderSmoothHourlySvg(buckets, max);
+    section.appendChild(svg);
+    appendHourlyHotzones(svg, buckets);
+    const tooltip = section.createDiv({ cls: "mrt-hour-tooltip" });
+    attachHourlyTooltip(section, svg, tooltip, buckets);
     const axis = section.createDiv({ cls: "mrt-hour-axis" });
     for (const label of ["0", "6", "12", "18", "24"]) {
       axis.createSpan({ text: label });
@@ -1425,8 +1343,12 @@ class ReadingTrackerView extends ItemView {
 
   renderMonthHeatmap(root: HTMLElement, records: BookRecord[]) {
     const days = daysInCurrentMonth();
-    const values = days.map((day) => records.reduce((sum, record) => sum + sessionsForDay(record, day.key).reduce((inner, session) => inner + session.durationMs, 0), 0));
-    const max = Math.max(1, ...values);
+    const values = days.map((day) => {
+      const sessions = records.flatMap((record) => visibleSessionsForDay(record, day.key));
+      const ms = sessions.reduce((sum, session) => sum + session.durationMs, 0);
+      return { ms, sessions: sessions.length };
+    });
+    const max = Math.max(1, ...values.map((v) => v.ms));
     const section = root.createDiv({ cls: "mrt-chart" });
     section.createDiv({ text: "本月热力图", cls: "mrt-module-title" });
     const weekdays = section.createDiv({ cls: "mrt-month-weekdays" });
@@ -1434,14 +1356,31 @@ class ReadingTrackerView extends ItemView {
       weekdays.createSpan({ text: weekday });
     }
     const grid = section.createDiv({ cls: "mrt-month-heatmap" });
+    const tooltip = grid.createDiv({ cls: "mrt-month-tooltip" });
     for (let index = 0; index < days[0].weekdayOffset; index += 1) {
       grid.createDiv({ cls: "mrt-month-pad" });
     }
     days.forEach((day, index) => {
-      const level = values[index] === 0 ? 0 : Math.max(1, Math.ceil((values[index] / max) * 4));
+      const entry = values[index];
+      const level = entry.ms === 0 ? 0 : Math.max(1, Math.ceil((entry.ms / max) * 4));
       const cell = grid.createDiv({ cls: `mrt-month-cell level-${level}` });
       cell.createSpan({ text: String(day.day), cls: "mrt-month-day" });
-      cell.setAttr("title", `${day.key}: ${formatDuration(values[index])}`);
+      cell.setAttr("title", `${day.key}: ${formatDuration(entry.ms)}`);
+      cell.setAttr("data-day", day.key);
+      cell.setAttr("data-ms", String(entry.ms));
+      cell.setAttr("data-sessions", String(entry.sessions));
+      const show = () => {
+        const durationText = entry.ms === 0 ? "无阅读" : formatDuration(entry.ms);
+        tooltip.setText(`${day.key} · ${entry.sessions} 段 · ${durationText}`);
+        const rect = cell.getBoundingClientRect();
+        const gridRect = grid.getBoundingClientRect();
+        tooltip.style.left = `${rect.left - gridRect.left + rect.width / 2}px`;
+        tooltip.style.top = `${rect.top - gridRect.top - 4}px`;
+        tooltip.addClass("is-visible");
+      };
+      const hide = () => tooltip.removeClass("is-visible");
+      cell.addEventListener("mouseenter", show);
+      cell.addEventListener("mouseleave", hide);
     });
   }
 
@@ -1703,6 +1642,13 @@ class ReadingTrackerSettingTab extends PluginSettingTab {
 
 function trackingStateLabel(state: TrackingState): string {
   if (state === "tracking") return "正在自动计时";
+  if (state === "locked") return "已锁定";
+  if (state === "paused") return "已暂停";
+  return "空闲";
+}
+
+function trackingStateShortLabel(state: TrackingState): string {
+  if (state === "tracking") return "计时中";
   if (state === "locked") return "已锁定";
   if (state === "paused") return "已暂停";
   return "空闲";
@@ -2000,6 +1946,49 @@ function smoothPath(points: Array<{ x: number; y: number }>): string {
     path += ` C ${c1x.toFixed(2)} ${c1y.toFixed(2)}, ${c2x.toFixed(2)} ${c2y.toFixed(2)}, ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}`;
   }
   return path;
+}
+
+function appendHourlyHotzones(svg: SVGSVGElement, _buckets: number[]) {
+  const hours = 24;
+  const bottom = 52;
+  const top = 8;
+  for (let h = 0; h < hours; h += 1) {
+    const x = (h / (hours - 1)) * 100;
+    const width = 100 / (hours - 1);
+    const rect = svgEl("rect");
+    setSvgAttrs(rect, {
+      x: (x - width / 2).toFixed(2),
+      y: String(top),
+      width: width.toFixed(2),
+      height: String(bottom - top),
+      class: "mrt-hour-hotzone",
+      "data-hour": String(h)
+    });
+    svg.appendChild(rect);
+  }
+}
+
+function attachHourlyTooltip(section: HTMLElement, svg: SVGSVGElement, tooltip: HTMLElement, buckets: number[]) {
+  const hours = buckets.length;
+  const show = (clientX: number, hour: number) => {
+    const ms = buckets[hour] ?? 0;
+    tooltip.setText(`${String(hour).padStart(2, "0")}:00 · ${formatDuration(ms)}`);
+    const rect = section.getBoundingClientRect();
+    const svgRect = svg.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const y = svgRect.top - rect.top - 4;
+    tooltip.style.left = `${x}px`;
+    tooltip.style.top = `${y}px`;
+    tooltip.addClass("is-visible");
+  };
+  const hide = () => tooltip.removeClass("is-visible");
+  svg.addEventListener("mousemove", (event) => {
+    const rect = svg.getBoundingClientRect();
+    const ratio = clamp((event.clientX - rect.left) / rect.width, 0, 1);
+    const hour = Math.min(hours - 1, Math.max(0, Math.round(ratio * (hours - 1))));
+    show(event.clientX, hour);
+  });
+  svg.addEventListener("mouseleave", hide);
 }
 
 function daysInCurrentMonth(): Array<{ key: string; day: number; weekdayOffset: number }> {

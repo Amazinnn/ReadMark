@@ -1,6 +1,6 @@
 {
   "name": "readmark",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Track reading time, progress, highlights, and annotations for local Markdown books in Obsidian.",
   "main": "main.js",
   "scripts": {
