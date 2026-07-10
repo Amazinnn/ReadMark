@@ -1,8 +1,8 @@
 .mrt-view {
-  background: #e6e6e6;
+  background: #f4f1ea;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
   padding: 6px;
 }
 
@@ -18,17 +18,18 @@
 .mrt-type-card,
 .mrt-details {
   background: #ffffff;
-  border: 1px solid #e1b437;
-  border-radius: 10px;
+  border: 0.5px solid #e6dfd0;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.24);
 }
 
 .mrt-app-header,
 .mrt-panel {
-  padding: 8px;
+  padding: 11px;
 }
 
 .mrt-section {
-  padding: 8px;
+  padding: 11px;
 }
 
 .mrt-title-row,
@@ -43,24 +44,82 @@
 .mrt-title-icon {
   align-items: center;
   background: #ffffff;
-  border: 1px solid #e1b437;
-  border-radius: 10px;
-  color: #ff9f6b;
+  border: 0.5px solid #e6dfd0;
+  border-radius: 11px;
+  color: #6653f3;
   display: inline-flex;
   flex: 0 0 auto;
-  height: 34px;
+  height: 48px;
   justify-content: center;
+  width: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mrt-title-icon > svg {
   width: 34px;
+  height: 34px;
+  position: relative;
+  z-index: 2;
+}
+
+.mrt-title-icon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: conic-gradient(from var(--mrt-logo-angle, 0deg), #8b7cff, #523cfb, #6653f3, #8b7cff);
+  opacity: 0.32;
+  filter: blur(6px);
+  animation: mrt-logo-spin 4000ms linear infinite;
+  z-index: 0;
+}
+
+.mrt-title-icon::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 9px;
+  background: #ffffff;
+  z-index: 1;
+}
+
+.mrt-title-icon.is-tracking {
+  animation: mrt-logo-pulse 2000ms linear infinite;
+}
+
+.mrt-title-icon.is-tracking::before {
+  animation: mrt-logo-spin 4000ms linear infinite, mrt-logo-brighten 2000ms linear infinite;
+}
+
+@property --mrt-logo-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes mrt-logo-spin {
+  to { --mrt-logo-angle: 360deg; }
+}
+
+@keyframes mrt-logo-brighten {
+  0%, 100% { opacity: 0.20; }
+  50%      { opacity: 0.45; }
+}
+
+@keyframes mrt-logo-pulse {
+  0%, 100% { box-shadow: 0 1px 4px rgba(0, 0, 0, 0.24); }
+  50%      { box-shadow: 0 1px 8px rgba(82, 60, 251, 0.45); }
 }
 
 .mrt-heading {
   color: var(--text-normal);
   flex: 1 1 auto;
-  font-size: 17px;
-  font-weight: 650;
-  letter-spacing: 0;
-  line-height: 1.15;
-  margin: 0;
+  font-size: 18px;
+  font-weight: 750;
+  letter-spacing: 0.4px;
+  line-height: 1.4;
+  margin: 0 0 10px;
   min-width: 0;
   overflow-wrap: anywhere;
 }
@@ -69,18 +128,18 @@
   color: var(--text-normal);
   font-size: var(--font-ui-medium);
   font-weight: 750;
-  letter-spacing: 0;
-  line-height: 1.2;
-  margin: 14px 0 8px;
+  letter-spacing: 0.4px;
+  line-height: 1.4;
+  margin: 14px 0 10px;
   overflow-wrap: anywhere;
 }
 
 .mrt-module-title {
   color: var(--text-normal);
   font-size: var(--font-ui-small);
-  font-weight: 850;
-  letter-spacing: 0;
-  line-height: 1.25;
+  font-weight: 750;
+  letter-spacing: 0.4px;
+  line-height: 1.4;
   margin: 0 0 9px;
   overflow-wrap: anywhere;
 }
@@ -93,11 +152,14 @@
 }
 
 .mrt-empty {
-  padding: 10px 0;
+  color: #888;
+  font-size: 12px;
+  line-height: 1.45;
+  padding: 6px 0;
 }
 
 .mrt-path {
-  color: var(--text-muted);
+  color: #666;
   font-family: var(--font-monospace);
   font-size: var(--font-ui-smaller);
   line-height: 1.35;
@@ -110,7 +172,7 @@
 .mrt-metrics {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
 }
 
 .mrt-toolbar {
@@ -120,12 +182,37 @@
 .mrt-icon-button,
 .mrt-actions button {
   align-items: center;
-  border-radius: 8px;
+  background: transparent;
+  border: 0.5px solid #9673d9;
+  border-radius: 7px;
+  color: #222;
+  cursor: pointer;
   display: inline-flex;
-  font-size: var(--font-ui-small);
+  font-size: 11px;
   font-weight: 650;
   gap: 6px;
   min-height: 32px;
+  padding: 4px 10px;
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease, transform 120ms ease;
+}
+
+.mrt-icon-button:hover,
+.mrt-actions button:hover {
+  background: rgba(82, 60, 251, 0.06);
+  border-color: #523cfb;
+  color: #523cfb;
+}
+
+.mrt-icon-button:active,
+.mrt-actions button:active {
+  background: rgba(82, 60, 251, 0.12);
+  transform: translateY(1px);
+}
+
+.mrt-icon-button:focus-visible,
+.mrt-actions button:focus-visible {
+  outline: 2px solid #523cfb;
+  outline-offset: 2px;
 }
 
 .mrt-button-icon {
@@ -136,92 +223,132 @@
 
 .mrt-segmented {
   background: var(--background-primary);
-  border: 1px solid var(--background-modifier-border);
-  border-radius: 8px;
+  border: 0.5px solid #e6dfd0;
+  border-radius: 12px;
   display: grid;
   gap: 4px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  padding: 4px;
+  padding: 9px;
 }
 
 .mrt-segment {
-  border-radius: 6px;
-  font-size: var(--font-ui-small);
+  background: transparent;
+  border: 0;
+  border-radius: 12px;
+  color: #222;
+  cursor: pointer;
+  font-size: 12px;
   font-weight: 700;
-  min-height: 32px;
+  min-height: 31px;
   min-width: 0;
   padding: 6px 8px;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.mrt-segment:hover:not(.is-active) {
+  background: rgba(82, 60, 251, 0.06);
+}
+
+.mrt-segment:focus-visible {
+  outline: 2px solid #523cfb;
+  outline-offset: 2px;
 }
 
 .mrt-segment.is-active {
-  background: #ff9f6b;
+  background: #523cfb;
   color: #fff;
 }
 
 .mrt-current-hero {
   background:
-    linear-gradient(135deg, rgba(255, 159, 107, 0.10), transparent 55%),
+    linear-gradient(135deg, rgba(139, 124, 255, 0.10), transparent 55%),
     #ffffff;
-  border: 1px solid #e1b437;
-  border-radius: 10px;
+  border: 0.5px solid #e6dfd0;
+  border-radius: 12px;
   margin-top: 10px;
-  padding: 8px;
+  padding: 11px;
+}
+
+.mrt-pill.is-duration {
+  background: rgba(139, 124, 255, 0.08);
+  border: 0 solid transparent;
+  color: #523cfb;
+  flex-basis: 100%;
+  font-weight: 600;
+  justify-content: space-between;
+  margin-top: 2px;
+  padding: 6px 10px;
+  width: 100%;
+}
+
+.mrt-pill.is-duration::before {
+  color: #888;
+  content: "阅读时长";
+  font-weight: 500;
+  margin-right: 8px;
+}
+
+.mrt-pill.is-duration .mrt-pill-duration-value {
+  color: #523cfb;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.2px;
 }
 
 .mrt-status-pill {
   align-items: center;
   border-radius: 999px;
   border-style: solid;
-  border-width: 1px;
-  color: var(--text-normal);
+  border-width: 0.5px;
+  color: #222;
   display: inline-flex;
   flex: 0 0 auto;
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 600;
   line-height: 1;
   min-width: 0;
   max-width: 100%;
   overflow: hidden;
-  padding: 4px 10px;
+  padding: 3px 15px;
   text-overflow: ellipsis;
   white-space: nowrap;
   transition: background-color 600ms ease;
 }
 
 .mrt-status-pill[data-mrt-tracking-state="tracking"] {
-  background: rgba(255, 159, 107, 0.18);
-  border-color: #ff9f6b;
+  background: rgba(82, 60, 251, 0.18);
+  border-color: #523cfb;
   animation: mrt-status-pulse 2000ms linear infinite;
 }
 
 .mrt-status-pill[data-mrt-tracking-state="locked"] {
-  background: rgba(225, 180, 55, 0.12);
-  border-color: #e1b437;
+  background: rgba(230, 223, 208, 0.30);
+  border-color: #e6dfd0;
 }
 
 .mrt-status-pill[data-mrt-tracking-state="paused"] {
   background: rgba(0, 0, 0, 0.04);
   border-color: #b8b8b8;
-  color: var(--text-muted);
+  color: #666;
 }
 
 .mrt-status-pill[data-mrt-tracking-state="idle"] {
-  background: rgba(255, 159, 107, 0.08);
-  border-color: #ff9f6b;
+  background: rgba(82, 60, 251, 0.08);
+  border-color: #523cfb;
 }
 
 @keyframes mrt-status-pulse {
-  0%   { background: rgba(255, 159, 107, 0.18); }
-  50%  { background: rgba(255, 159, 107, 0.32); }
-  100% { background: rgba(255, 159, 107, 0.18); }
+  0%   { background: rgba(82, 60, 251, 0.18); }
+  50%  { background: rgba(82, 60, 251, 0.32); }
+  100% { background: rgba(82, 60, 251, 0.18); }
 }
 
 .mrt-title {
   color: var(--text-normal);
-  font-size: 17px;
-  font-weight: 650;
-  letter-spacing: 0;
-  line-height: 1.2;
+  font-size: 18px;
+  font-weight: 750;
+  letter-spacing: 0.4px;
+  line-height: 1.4;
   min-width: 0;
   overflow-wrap: anywhere;
 }
@@ -229,34 +356,36 @@
 .mrt-status-badge,
 .mrt-pill {
   align-items: center;
-  background: var(--background-secondary);
-  border: 1px solid var(--background-modifier-border);
-  border-radius: 999px;
-  color: var(--text-muted);
+  background: #ffffff;
+  border: 0 solid #dcdcdc;
+  border-radius: 4px;
+  color: #444;
   display: inline-flex;
   flex: 0 0 auto;
-  font-size: var(--font-ui-smaller);
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 500;
   line-height: 1;
   min-height: 24px;
-  padding: 5px 9px;
+  padding: 4px 8px;
 }
 
 .mrt-status-badge.is-tracking {
-  background: rgba(255, 159, 107, 0.18);
-  border-color: #ff9f6b;
+  background: rgba(139, 124, 255, 0.18);
+  border-color: #8b7cff;
   color: var(--text-normal);
 }
 
 .mrt-status-badge.is-paused,
 .mrt-pill-warning {
-  background: var(--background-modifier-hover);
-  color: var(--text-normal);
+  background: rgba(225, 180, 55, 0.12);
+  border-color: #e6dfd0;
+  color: #5a4318;
 }
 
 .mrt-pill-error {
-  background: var(--background-modifier-error);
-  color: var(--text-on-accent);
+  background: rgba(220, 80, 80, 0.12);
+  border-color: rgba(220, 80, 80, 0.6);
+  color: #b13a3a;
 }
 
 .mrt-stat-grid {
@@ -268,43 +397,45 @@
 
 .mrt-stat-card {
   background: #ffffff;
-  border: 1px solid #e1b437;
-  border-radius: 10px;
+  border: 0.5px solid #e6dfd0;
+  border-radius: 12px;
   min-width: 0;
-  padding: 8px;
+  padding: 11px;
 }
 
 .mrt-stat-value {
-  color: var(--text-normal);
-  font-size: clamp(20px, 5vw, 30px);
-  font-weight: 850;
-  letter-spacing: 0;
-  line-height: 1;
+  color: #222;
+  font-size: clamp(18px, 4.4vw, 26px);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  line-height: 1.1;
   overflow-wrap: anywhere;
+  word-break: break-all;
 }
 
 .mrt-stat-label {
   color: var(--text-normal);
-  font-size: var(--font-ui-smaller);
-  font-weight: 800;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
   margin-top: 7px;
 }
 
 .mrt-progress-wrap {
   margin-top: 10px;
-  padding: 8px;
+  padding: 11px;
 }
 
 .mrt-progress-track {
   background: #f0eedf;
-  border: 1px solid #e1b437;
+  border: 0.5px solid #e6dfd0;
   border-radius: 999px;
   height: 12px;
   overflow: hidden;
 }
 
 .mrt-progress-fill {
-  background: #ff9f6b;
+  background: #8b7cff;
   height: 100%;
   transition: width 180ms ease-out;
 }
@@ -317,7 +448,14 @@
 .mrt-excerpt,
 .mrt-empty-card {
   margin-bottom: 10px;
-  padding: 8px;
+  padding: 11px;
+}
+
+.mrt-card .mrt-actions,
+.mrt-card .mrt-metrics {
+  border-top: 0.75px solid #e6dfd0;
+  margin-top: 10px;
+  padding-top: 12px;
 }
 
 .mrt-clickable {
@@ -327,21 +465,21 @@
 
 .mrt-clickable:hover,
 .mrt-excerpt:hover {
-  border-color: #ff9f6b;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
-  transform: translateY(-2px);
+  border-color: #523cfb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.32);
+  transform: translateY(-1px);
 }
 
 .mrt-excerpt-type {
-  color: var(--text-accent);
-  font-size: var(--font-ui-smaller);
+  color: #8b7cff;
+  font-size: 10px;
   font-weight: 800;
-  letter-spacing: 0;
-  margin-bottom: 8px;
+  letter-spacing: 0.2px;
+  margin-bottom: 6px;
 }
 
 .mrt-excerpt-text {
-  border-left: 4px solid #ff9f6b;
+  border-left: 4px solid #8b7cff;
   color: var(--text-normal);
   font-size: var(--font-ui-small);
   line-height: 1.55;
@@ -352,15 +490,16 @@
 
 .mrt-chart {
   margin-top: 12px;
-  padding: 8px;
+  padding: 11px;
   position: relative;
 }
 
 .mrt-chart-meta {
-  color: var(--text-muted);
-  font-size: var(--font-ui-smaller);
+  color: #888;
+  font-size: 11px;
   font-weight: 650;
-  margin-bottom: 8px;
+  letter-spacing: 0.1px;
+  margin-bottom: 6px;
 }
 
 .mrt-hour-svg {
@@ -373,20 +512,20 @@
 }
 
 .mrt-hour-grid {
-  stroke: #e1b437;
+  stroke: #e6dfd0;
   stroke-width: 0.5;
 }
 
 .mrt-hour-area {
-  fill: rgba(255, 159, 107, 0.18);
+  fill: rgba(139, 124, 255, 0.08);
 }
 
 .mrt-hour-line {
   fill: none;
-  stroke: #ff9f6b;
+  stroke: #523cfb;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 2.4;
+  stroke-width: 1.6;
 }
 
 .mrt-hour-hotzone {
@@ -397,8 +536,8 @@
 .mrt-hour-tooltip,
 .mrt-month-tooltip {
   background: #ffffff;
-  border: 1px solid #ff9f6b;
-  border-radius: 6px;
+  border: 0.5px solid #8b7cff;
+  border-radius: 12px;
   color: var(--text-normal);
   font-size: 11px;
   font-weight: 700;
@@ -419,9 +558,9 @@
 }
 
 .mrt-hour-axis {
-  color: var(--text-muted);
+  color: #888;
   display: flex;
-  font-size: var(--font-ui-smaller);
+  font-size: 10px;
   font-weight: 700;
   justify-content: space-between;
   margin-top: 6px;
@@ -429,7 +568,7 @@
 
 .mrt-type-card {
   margin-top: 10px;
-  padding: 8px;
+  padding: 11px;
 }
 
 .mrt-type-body {
@@ -442,7 +581,7 @@
 .mrt-donut {
   align-items: center;
   aspect-ratio: 1;
-  border: 1px solid #e1b437;
+  border: 0.5px solid #e6dfd0;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -452,7 +591,7 @@
 
 .mrt-donut::after {
   background: #ffffff;
-  border: 1px solid #e1b437;
+  border: 0.5px solid #e6dfd0;
   border-radius: 50%;
   content: "";
   height: 58%;
@@ -465,9 +604,10 @@
 }
 
 .mrt-donut-center {
-  color: var(--text-normal);
-  font-size: var(--font-ui-large);
-  font-weight: 850;
+  color: #222;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
   line-height: 1;
   position: relative;
   z-index: 1;
@@ -493,11 +633,11 @@
 }
 
 .mrt-type-dot.type-0 {
-  background: #ff9f6b;
+  background: #8b7cff;
 }
 
 .mrt-type-dot.type-1 {
-  background: #e1b437;
+  background: #e6dfd0;
 }
 
 .mrt-type-dot.type-2 {
@@ -506,9 +646,10 @@
 
 .mrt-type-name,
 .mrt-type-count {
-  color: var(--text-normal);
-  font-size: var(--font-ui-small);
+  color: #222;
+  font-size: 12px;
   font-weight: 800;
+  letter-spacing: 0.1px;
 }
 
 .mrt-type-name {
@@ -532,8 +673,8 @@
 }
 
 .mrt-month-weekdays {
-  color: var(--text-muted);
-  font-size: var(--font-ui-smaller);
+  color: #888;
+  font-size: 10px;
   font-weight: 800;
   margin-bottom: 6px;
   text-align: center;
@@ -549,7 +690,7 @@
 .mrt-month-cell {
   align-items: center;
   background: #ffffff;
-  border: 1px solid #e1b437;
+  border: 0.5px solid #e6dfd0;
   color: var(--text-normal);
   display: flex;
   justify-content: center;
@@ -558,7 +699,8 @@
 }
 
 .mrt-month-day {
-  font-size: var(--font-ui-smaller);
+  color: inherit;
+  font-size: 10px;
   font-weight: 850;
   line-height: 1;
 }
@@ -568,46 +710,70 @@
 }
 
 .mrt-month-cell.level-1 {
-  background: rgba(255, 159, 107, 0.18);
+  background: rgba(139, 124, 255, 0.18);
 }
 
 .mrt-month-cell.level-2 {
-  background: rgba(255, 159, 107, 0.42);
+  background: rgba(139, 124, 255, 0.42);
 }
 
 .mrt-month-cell.level-3 {
-  background: rgba(255, 159, 107, 0.72);
+  background: rgba(139, 124, 255, 0.72);
   color: #fff;
 }
 
 .mrt-month-cell.level-4 {
-  background: #ff9f6b;
+  background: #8b7cff;
   color: #fff;
 }
 
 .mrt-month-cell:hover {
-  border-color: #ff9f6b;
-  outline: 2px solid #ff9f6b;
+  border-color: #8b7cff;
+  outline: 2px solid #8b7cff;
   outline-offset: -2px;
   z-index: 1;
 }
 
 .mrt-details {
   margin-top: 12px;
-  padding: 8px 8px;
+  padding: 11px;
 }
 
 .mrt-details > summary {
-  color: var(--text-normal);
+  color: #222;
   cursor: pointer;
-  font-size: var(--font-ui-small);
+  font-size: 12px;
   font-weight: 800;
   list-style: none;
   margin-bottom: 8px;
+  padding: 2px 0;
 }
 
 .mrt-details > summary::-webkit-details-marker {
   display: none;
+}
+
+.mrt-details > summary::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 6px;
+  transition: transform 120ms ease;
+  color: #8b7cff;
+  font-size: 10px;
+}
+
+.mrt-details[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.mrt-details > summary:hover {
+  color: #8b7cff;
+}
+
+.mrt-details > summary:focus-visible {
+  outline: 2px solid #8b7cff;
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .mrt-record-row {
@@ -616,20 +782,20 @@
   gap: 10px;
   justify-content: space-between;
   margin-top: 8px;
-  padding: 10px;
+  padding: 8px 10px;
 }
 
 .mrt-record-time {
-  color: var(--text-muted);
-  font-size: var(--font-ui-small);
+  color: #666;
+  font-size: 11px;
   min-width: 0;
   overflow-wrap: anywhere;
 }
 
 .mrt-record-duration {
-  color: var(--text-normal);
+  color: #222;
   flex: 0 0 auto;
-  font-size: var(--font-ui-small);
+  font-size: 12px;
   font-weight: 800;
 }
 

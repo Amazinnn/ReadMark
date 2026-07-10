@@ -1023,6 +1023,9 @@ class ReadingTrackerView extends ItemView {
     const titleRow = section.createDiv({ cls: "mrt-title-row" });
     const icon = titleRow.createSpan({ cls: "mrt-title-icon" });
     setIcon(icon, READMARK_ICON_ID);
+    if (this.plugin.getTrackingState() === "tracking") {
+      icon.addClass("is-tracking");
+    }
     titleRow.createEl("h3", { text: "ReadMark", cls: "mrt-heading" });
   }
 
@@ -1115,8 +1118,9 @@ class ReadingTrackerView extends ItemView {
       const metrics = card.createDiv({ cls: "mrt-metrics" });
       metrics.createSpan({ text: status.exists ? "可用" : "缺失", cls: status.exists ? "mrt-pill" : "mrt-pill mrt-pill-error" });
       metrics.createSpan({ text: status.inVault ? "库内" : "库外", cls: "mrt-pill" });
-      metrics.createSpan({ text: formatDuration(record.totalReadMs), cls: "mrt-pill" });
       metrics.createSpan({ text: `${record.cachedCounts.highlights + record.cachedCounts.annotations} 摘录`, cls: "mrt-pill" });
+      const durationPill = metrics.createSpan({ text: "", cls: "mrt-pill is-duration" });
+      durationPill.createSpan({ text: formatDuration(record.totalReadMs), cls: "mrt-pill-duration-value" });
 
       const actions = card.createDiv({ cls: "mrt-actions" });
       actions.createEl("button", { text: "打开" }).addEventListener("click", () => void this.plugin.continueBook(book));
@@ -1181,14 +1185,29 @@ class ReadingTrackerView extends ItemView {
     const touchedBooks = records.filter((record) => sessionsForDay(record, today).length > 0).length;
     const goalMs = this.plugin.trackerSettings.dailyGoalMinutes * 60_000;
 
-    this.renderMetricGrid(root, [
-      ["阅读时长/目标时长", `${formatDuration(todayMs)}/${formatDuration(goalMs)}`, undefined],
-      ["阅读时段", String(todaySessions), "stats-today-sessions"],
-      ["书目", String(touchedBooks), "stats-today-books"]
-    ]);
+    const grid = root.createDiv({ cls: "mrt-stat-grid" });
+    this.renderDurationCard(grid, "阅读时长/目标时长", formatDuration(todayMs), formatDuration(goalMs));
+    this.renderSimpleCard(grid, "阅读时段", String(todaySessions), "stats-today-sessions");
+    this.renderSimpleCard(grid, "书目", String(touchedBooks), "stats-today-books");
     this.renderProgressBar(root, goalMs === 0 ? 100 : (todayMs / goalMs) * 100, "今日目标", "stats-today-goal");
     this.renderHourlyChart(root, records, today);
     this.renderTodayExcerpts(root, pairs);
+  }
+
+  renderSimpleCard(grid: HTMLElement, label: string, value: string, key?: string) {
+    const card = grid.createDiv({ cls: "mrt-stat-card" });
+    const valueEl = card.createDiv({ text: value, cls: "mrt-stat-value" });
+    if (key) valueEl.setAttr("data-mrt-dynamic", key);
+    card.createDiv({ text: label, cls: "mrt-stat-label" });
+  }
+
+  renderDurationCard(grid: HTMLElement, label: string, current: string, goal: string) {
+    const card = grid.createDiv({ cls: "mrt-stat-card mrt-stat-card-duration" });
+    const valueEl = card.createDiv({ cls: "mrt-stat-value" });
+    valueEl.createSpan({ text: current, cls: "mrt-stat-value-line" });
+    valueEl.createSpan({ text: "/", cls: "mrt-stat-value-sep" });
+    valueEl.createSpan({ text: goal, cls: "mrt-stat-value-line" });
+    card.createDiv({ text: label, cls: "mrt-stat-label" });
   }
 
   getTodayStatsValues(pairs: Array<{ book: BookIndex; record: BookRecord; status: BookStatus }>): Record<string, string> {
@@ -1305,9 +1324,7 @@ class ReadingTrackerView extends ItemView {
       if (key) valueEl.setAttr("data-mrt-dynamic", key);
       card.createDiv({ text: label, cls: "mrt-stat-label" });
     }
-  }
-
-  renderProgressBar(root: HTMLElement, value: number, label: string, dynamicKey?: string) {
+  }  renderProgressBar(root: HTMLElement, value: number, label: string, dynamicKey?: string) {
     const wrap = root.createDiv({ cls: "mrt-progress-wrap" });
     const labelEl = wrap.createDiv({ text: `${label} · ${formatPercent(value)}`, cls: "mrt-module-title" });
     if (dynamicKey) labelEl.setAttr("data-mrt-dynamic", `${dynamicKey}-label`);
@@ -2123,8 +2140,10 @@ function formatDuration(ms: number): string {
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
-  if (hours > 0) return `${hours}h ${minutes}m`;
-  if (minutes > 0) return `${minutes}m ${seconds}s`;
+  if (hours > 0 && minutes > 0) return `${hours}h ${minutes}m`;
+  if (hours > 0) return `${hours}h`;
+  if (minutes > 0 && seconds > 0) return `${minutes}m ${seconds}s`;
+  if (minutes > 0) return `${minutes}m`;
   return `${seconds}s`;
 }
 
