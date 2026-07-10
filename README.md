@@ -11,7 +11,7 @@
 Track reading time, progress, highlights, and annotations without sending your reading life to a service.
 
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.3.2-8b7cff?style=flat-square">
+  <img alt="Version" src="https://img.shields.io/badge/version-0.3.3-8b7cff?style=flat-square">
   <img alt="Obsidian" src="https://img.shields.io/badge/Obsidian-1.5.0%2B-7c3aed?style=flat-square">
   <img alt="Desktop only" src="https://img.shields.io/badge/Desktop-only-e1b437?style=flat-square">
   <img alt="Local first" src="https://img.shields.io/badge/Local--first-yes-2f855a?style=flat-square">
@@ -20,6 +20,32 @@ Track reading time, progress, highlights, and annotations without sending your r
 </div>
 
 ---
+
+## Quickstart
+
+ReadMark is not yet listed in the Obsidian community plugin directory.
+
+1. Open the [latest GitHub Release](https://github.com/Amazinnn/ReadMark/releases/latest).
+2. Download these three files from the release assets:
+
+```text
+manifest.json
+main.js
+styles.css
+```
+
+3. Create this folder inside your Obsidian vault:
+
+```text
+<your-vault>/.obsidian/plugins/readmark/
+```
+
+4. Put the three downloaded files directly inside `readmark/`.
+5. Restart Obsidian, or reload the app.
+6. Go to **Settings -> Community plugins**, enable **ReadMark**, then open the ReadMark sidebar.
+7. Open a Markdown book and use **Add current file** (`加入当前文件`) or **Add local path** (`添加本地路径`) to start tracking it.
+
+If the release assets are not available yet, download this repository as a ZIP and copy the same three files from the repository root.
 
 ## What It Does
 
@@ -93,9 +119,7 @@ These files are local runtime data and are not part of the published plugin file
 
 ## Installation
 
-ReadMark is not yet listed in the Obsidian community plugin directory.
-
-For local development or manual testing, place the plugin files in:
+Install ReadMark by placing the plugin files in:
 
 ```text
 <your-vault>/.obsidian/plugins/readmark/
@@ -110,6 +134,25 @@ styles.css
 ```
 
 Then reload Obsidian and enable **ReadMark** under Community plugins.
+
+## Updating
+
+To update ReadMark manually, replace only these files:
+
+```text
+manifest.json
+main.js
+styles.css
+```
+
+Do not delete `data.json` or the `books/` folder if they exist. They contain your local reading records.
+
+## Troubleshooting
+
+- `.obsidian` may be hidden by your file manager.
+- The plugin folder must be named `readmark`.
+- `manifest.json`, `main.js`, and `styles.css` must be directly inside `readmark/`, not inside a nested folder.
+- ReadMark is desktop-only and does not support Obsidian mobile.
 
 ## Repository Contents
 
