@@ -89,21 +89,21 @@ Charts are rendered with local DOM/SVG code. No chart library is used.
 
 ## Visual System
 
-The sidebar uses a compact, light-theme-first palette defined in `styles.css`. All values are baked into CSS; no CSS variables are introduced.
+The sidebar uses a compact, light-theme-first palette defined in `styles.css`. Most values are baked into CSS; the logo halo uses a registered `--mrt-logo-angle` custom property for conic-gradient rotation.
 
-- Accent: `#ff9f6b` (warm orange). Used for progress bars, status pill in `tracking` state, focus borders on hover, and the donut center text.
-- Border: `#e1b437` (mustard yellow). All `.mrt-*` cards and panels use this 1px border.
-- Page background: `#e6e6e6` (gray). Applied to `.mrt-view` so cards float on a slightly darker surface.
-- Card background: `#ffffff`. Cards keep white fills to separate from the gray page.
-- Radius: 10px. Block gap: 6px. Card padding: 8px.
-- Heading: 17px / weight 650. Stat values use a larger variant (clamp 20–30px, weight 850).
-- Hover: 2px upward translation with `0 6px 14px rgba(0,0,0,0.18)` shadow. Border color shifts toward the accent.
+- Accent: `#8b7cff` / `#523cfb` / `#6653f3` (purple family). Used for progress bars, hover borders, excerpt accents, donut text, and the ReadMark logo halo.
+- Border: `#e6dfd0` (soft warm gray). Cards and panels use thin 0.5px borders.
+- Page background: `#f4f1ea` (warm page gray). Applied to `.mrt-view` so white cards read as distinct surfaces.
+- Card background: `#ffffff`. Cards keep white fills to separate from the page surface.
+- Radius: 12px for cards and panels; block gap: 5px; card padding: 11px.
+- Heading: 18px / weight 750 / line-height 1.4. Stat and donut values are slimmed to avoid crowding.
+- Hover: 1px upward translation with a stronger shadow; border color shifts toward deep purple.
 - Status pill colors:
-  - `tracking`: orange border, 18%–32% orange background, 2s linear breathing animation.
-  - `locked`: mustard border, light yellow background.
+  - `tracking`: purple border, 18%–32% purple background, 2s linear breathing animation.
+  - `locked`: soft warm-gray border and light neutral background.
   - `paused`: gray border, light gray background, muted text.
-  - `idle`: orange border, 8% orange background.
-- Heatmap 5 levels: pure orange gradient, with white text from level 3 upward for legibility.
+  - `idle`: purple border, 8% purple background.
+- Heatmap 5 levels: purple-forward accent levels, with white text from level 3 upward for legibility.
 
 ## Information Layer
 

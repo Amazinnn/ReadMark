@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.3.2 - 2026-07-10
+
+### UI
+
+- Reworked the sidebar visual system around the purple `#8b7cff` accent, softer borders, denser cards, compact buttons, square tag chips, and a rotating logo halo.
+- Added tracking-state animation to the ReadMark logo block while keeping status pills readable across tracking, locked, paused, and idle states.
+- Slimmed chart and stat visuals, including lighter hourly chart strokes and tighter donut/stat typography.
+
+### Polish
+
+- Fixed duration formatting so zero segments are omitted (`30m 0s` becomes `30m`, `1h 0m` becomes `1h`).
+- Split duration/stat values into typed spans so compact cards do not break tokens like `30m` across lines.
+
 ## 0.3.1 - 2026-07-09
 
 ### Branding

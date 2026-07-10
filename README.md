@@ -11,7 +11,7 @@
 Track reading time, progress, highlights, and annotations without sending your reading life to a service.
 
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.3.1-ff9f6b?style=flat-square">
+  <img alt="Version" src="https://img.shields.io/badge/version-0.3.2-8b7cff?style=flat-square">
   <img alt="Obsidian" src="https://img.shields.io/badge/Obsidian-1.5.0%2B-7c3aed?style=flat-square">
   <img alt="Desktop only" src="https://img.shields.io/badge/Desktop-only-e1b437?style=flat-square">
   <img alt="Local first" src="https://img.shields.io/badge/Local--first-yes-2f855a?style=flat-square">
@@ -116,7 +116,7 @@ Then reload Obsidian and enable **ReadMark** under Community plugins.
 This repository currently lives directly inside a local Obsidian test vault:
 
 ```powershell
-cd "D:\Projects\项目仓库Bingo\.obsidian\plugins\readmark"
+cd "D:\Projects\.obsidian\plugins\readmark"
 npm install
 npm run build
 ```

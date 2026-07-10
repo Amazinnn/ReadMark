@@ -9,3 +9,11 @@ books/
 # Build/editor noise
 .DS_Store
 *.tsbuildinfo
+
+# Local UI design scratchpads generated during visual tuning.
+docs/playground/all-layouts.html
+docs/playground/card-details.html
+docs/playground/card-styles.html
+docs/playground/logo-frame.html
+docs/playground/shelf-and-heading.html
+docs/playground/tag-styles.html

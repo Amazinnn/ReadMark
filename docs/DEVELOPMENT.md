@@ -7,7 +7,7 @@ Use this document for local setup, build, verification, and release preparation.
 Use the stable source project:
 
 ```text
-D:\Projects\项目仓库Bingo\.obsidian\plugins\readmark
+D:\Projects\.obsidian\plugins\readmark
 ```
 
 This repository lives directly inside the local Obsidian test vault's plugin directory so builds can be tested immediately.
@@ -15,7 +15,7 @@ This repository lives directly inside the local Obsidian test vault's plugin dir
 ## Install
 
 ```powershell
-cd "D:\Projects\项目仓库Bingo\.obsidian\plugins\readmark"
+cd "D:\Projects\.obsidian\plugins\readmark"
 npm install
 ```
 
@@ -32,13 +32,13 @@ Do not edit `main.js` manually.
 ## Obsidian Test Vault
 
 ```text
-D:\Projects\项目仓库Bingo
+D:\Projects
 ```
 
 The plugin directory is this repository:
 
 ```text
-D:\Projects\项目仓库Bingo\.obsidian\plugins\readmark
+D:\Projects\.obsidian\plugins\readmark
 ```
 
 After `npm run build`, reload the plugin or restart Obsidian to test the new `main.js`.
