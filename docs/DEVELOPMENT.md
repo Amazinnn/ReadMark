@@ -4,18 +4,18 @@ Use this document for local setup, build, verification, and release preparation.
 
 ## Project Root
 
-Use the stable source project:
+For local development, use a test vault and place the repository in that vault's plugin directory:
 
 ```text
-D:\Projects\.obsidian\plugins\readmark
+<your-vault>/.obsidian/plugins/readmark
 ```
 
-This repository lives directly inside the local Obsidian test vault's plugin directory so builds can be tested immediately.
+Keeping the repository at the plugin path lets Obsidian load the built output immediately after the plugin is reloaded.
 
 ## Install
 
 ```powershell
-cd "D:\Projects\.obsidian\plugins\readmark"
+cd "<your-vault>\.obsidian\plugins\readmark"
 npm install
 ```
 
@@ -31,14 +31,10 @@ Do not edit `main.js` manually.
 
 ## Obsidian Test Vault
 
-```text
-D:\Projects
-```
-
-The plugin directory is this repository:
+Use any local Obsidian vault for manual testing. The plugin directory should be this repository:
 
 ```text
-D:\Projects\.obsidian\plugins\readmark
+<your-vault>/.obsidian/plugins/readmark
 ```
 
 After `npm run build`, reload the plugin or restart Obsidian to test the new `main.js`.
@@ -89,6 +85,7 @@ Do not stage:
 - `data.json`
 - `books/`
 - `node_modules/`
+- local agent configuration files
 - local logs or temporary files.
 
 ## Remote

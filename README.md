@@ -113,10 +113,10 @@ Then reload Obsidian and enable **ReadMark** under Community plugins.
 
 ## Development
 
-This repository currently lives directly inside a local Obsidian test vault:
+For development, clone or place this repository in a test vault's plugin directory:
 
 ```powershell
-cd "D:\Projects\.obsidian\plugins\readmark"
+cd "<your-vault>\.obsidian\plugins\readmark"
 npm install
 npm run build
 ```
@@ -150,11 +150,10 @@ versions.json
 
 ## Documentation
 
-- [Agent handoff](AGENTS.md)
-- [Claude Code notes](CLAUDE.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Data model](docs/DATA_MODEL.md)
 - [Development](docs/DEVELOPMENT.md)
+- [Terminology](docs/TERMINOLOGY.md)
 - [Versioning](docs/VERSIONING.md)
 - [Changelog](docs/CHANGELOG.md)
 

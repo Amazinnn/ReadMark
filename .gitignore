@@ -17,3 +17,14 @@ docs/playground/card-styles.html
 docs/playground/logo-frame.html
 docs/playground/shelf-and-heading.html
 docs/playground/tag-styles.html
+
+# Local agent/configuration files. Keep these on the developer machine, not in
+# the public repository.
+CLAUDE.md
+AGENTS.md
+CONTEXT.md
+.claude/
+.codex/
+.agents/
+docs/superpowers/
+*.local.md
