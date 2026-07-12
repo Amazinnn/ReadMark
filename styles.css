@@ -479,13 +479,39 @@
 }
 
 .mrt-excerpt-text {
-  border-left: 4px solid #8b7cff;
+  border-left: 4px solid #f5b301;
   color: var(--text-normal);
   font-size: var(--font-ui-small);
   line-height: 1.55;
   padding-left: 10px;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
+}
+
+.mrt-excerpt-text.type-bold {
+  border-left-color: #2563eb;
+}
+
+.mrt-excerpt-text.type-annotation {
+  border-left-color: #16a34a;
+}
+
+.mrt-excerpt-text.type-commentary {
+  border-left-color: #dc2626;
+}
+
+.mrt-excerpt-commentary {
+  display: grid;
+  gap: 7px;
+}
+
+.mrt-excerpt-source {
+  border-left-color: #dc2626;
+}
+
+.mrt-excerpt-comment {
+  border-left-color: #ef4444;
+  color: #444;
 }
 
 .mrt-chart {
@@ -632,16 +658,24 @@
   width: 10px;
 }
 
+.mrt-type-dot.type-highlight,
 .mrt-type-dot.type-0 {
-  background: #8b7cff;
+  background: #f5b301;
 }
 
+.mrt-type-dot.type-bold,
 .mrt-type-dot.type-1 {
-  background: #e6dfd0;
+  background: #2563eb;
 }
 
+.mrt-type-dot.type-annotation,
 .mrt-type-dot.type-2 {
-  background: #b0b0b0;
+  background: #16a34a;
+}
+
+.mrt-type-dot.type-commentary,
+.mrt-type-dot.type-3 {
+  background: #dc2626;
 }
 
 .mrt-type-name,

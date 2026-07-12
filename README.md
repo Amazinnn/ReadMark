@@ -8,10 +8,10 @@
 
 **A local-first reading tracker for Markdown books in Obsidian.**
 
-Track reading time, progress, highlights, and annotations without sending your reading life to a service.
+Track reading time, progress, highlights, bold excerpts, annotations, and commentary excerpts without sending your reading life to a service.
 
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.3.3-8b7cff?style=flat-square">
+  <img alt="Version" src="https://img.shields.io/badge/version-0.4.0-8b7cff?style=flat-square">
   <img alt="Obsidian" src="https://img.shields.io/badge/Obsidian-1.5.0%2B-7c3aed?style=flat-square">
   <img alt="Desktop only" src="https://img.shields.io/badge/Desktop-only-e1b437?style=flat-square">
   <img alt="Local first" src="https://img.shields.io/badge/Local--first-yes-2f855a?style=flat-square">
@@ -65,8 +65,16 @@ ReadMark turns local Markdown files into a lightweight reading shelf inside Obsi
     <td>Detects Markdown highlights written as <code>==highlight==</code>.</td>
   </tr>
   <tr>
+    <td><strong>Bold excerpts</strong></td>
+    <td>Detects reader-marked Markdown bold text written as <code>**bold**</code>.</td>
+  </tr>
+  <tr>
     <td><strong>Annotations</strong></td>
     <td>Detects Obsidian comments, footnote annotations, and source-derived excerpt snapshots.</td>
+  </tr>
+  <tr>
+    <td><strong>Commentary</strong></td>
+    <td>Detects <code>==highlight==%%comment%%</code> and <code>**bold**%%comment%%</code> as one commentary excerpt.</td>
   </tr>
   <tr>
     <td><strong>Stats</strong></td>
