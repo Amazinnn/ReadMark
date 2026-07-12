@@ -11,7 +11,7 @@
 Track reading time, progress, highlights, bold excerpts, annotations, and commentary excerpts without sending your reading life to a service.
 
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.4.4-4719b8?style=flat-square">
+  <img alt="Version" src="https://img.shields.io/badge/version-0.4.6-4719b8?style=flat-square">
   <img alt="Obsidian" src="https://img.shields.io/badge/Obsidian-1.5.0%2B-7c3aed?style=flat-square">
   <img alt="Desktop only" src="https://img.shields.io/badge/Desktop-only-e1b437?style=flat-square">
   <img alt="Local first" src="https://img.shields.io/badge/Local--first-yes-2f855a?style=flat-square">
