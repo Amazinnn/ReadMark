@@ -11,7 +11,7 @@
 Track reading time, progress, highlights, bold excerpts, annotations, and commentary excerpts without sending your reading life to a service.
 
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.4.1-4719b8?style=flat-square">
+  <img alt="Version" src="https://img.shields.io/badge/version-0.4.2-4719b8?style=flat-square">
   <img alt="Obsidian" src="https://img.shields.io/badge/Obsidian-1.5.0%2B-7c3aed?style=flat-square">
   <img alt="Desktop only" src="https://img.shields.io/badge/Desktop-only-e1b437?style=flat-square">
   <img alt="Local first" src="https://img.shields.io/badge/Local--first-yes-2f855a?style=flat-square">
@@ -58,7 +58,7 @@ ReadMark turns local Markdown files into a lightweight reading shelf inside Obsi
   </tr>
   <tr>
     <td><strong>Progress</strong></td>
-    <td>Remembers scroll progress and lets you continue from the last reading position.</td>
+    <td>Remembers the screen-middle paragraph and falls back to stable scroll progress when needed.</td>
   </tr>
   <tr>
     <td><strong>Highlights</strong></td>
