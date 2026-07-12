@@ -1,7 +1,7 @@
 {
   "id": "readmark",
   "name": "ReadMark",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "minAppVersion": "1.5.0",
   "description": "Track reading time, progress, highlights, bold excerpts, annotations, and commentary for local Markdown books.",
   "author": "",
