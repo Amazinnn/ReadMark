@@ -11,7 +11,7 @@
 Track reading time, progress, highlights, bold excerpts, annotations, commentary, and Obsidian callout excerpts without sending your reading life to a service.
 
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.5.0-4719b8?style=flat-square">
+  <img alt="Version" src="https://img.shields.io/badge/version-0.6.0--alpha.1-4719b8?style=flat-square">
   <img alt="Obsidian" src="https://img.shields.io/badge/Obsidian-1.5.0%2B-7c3aed?style=flat-square">
   <img alt="Desktop only" src="https://img.shields.io/badge/Desktop-only-e1b437?style=flat-square">
   <img alt="Local first" src="https://img.shields.io/badge/Local--first-yes-2f855a?style=flat-square">
@@ -88,7 +88,24 @@ ReadMark turns local Markdown files into a lightweight reading shelf inside Obsi
     <td><strong>Stats</strong></td>
     <td>Shows today's reading, current-book stats, all-books stats, hourly distribution, and a monthly heatmap.</td>
   </tr>
+  <tr>
+    <td><strong>Book World Labs</strong></td>
+    <td>Runs a source-grounded MiniMax-M3 semantic pipeline for one tracked book and automatically imports its validated revision.</td>
+  </tr>
 </table>
+
+## Book World Labs
+
+`0.6.0-alpha.1` introduces the data foundation for **Book World**, an experimental central Obsidian view. Labs is disabled by default and this alpha does not yet render the planned 2.5D map.
+
+1. Install and build the separate `readmark-map-runner` Node/TypeScript CLI beside the vault, or select its installation directory once.
+2. Open a tracked book and choose **Open Book World -> Enable and configure**.
+3. Enter the MiniMax API Key once, then choose **Generate Book World**.
+4. Confirm the proposed world attributes when prompted. ReadMark resumes the checkpoints and imports the finished revision automatically.
+
+The API Key exists transiently in the setup field and is sent to the Runner over stdin. Only the Runner stores it, as plaintext in its ignored local `config.json`; ReadMark never writes it to plugin settings, task artifacts, logs, or map state. The default text model is `MiniMax-M3`. Closing Obsidian or cancelling a task stops the child process, and **Continue generation** resumes from Runner checkpoints.
+
+Automatic import re-reads the current Markdown and verifies the protocol version, task checksums, source fingerprint, source IDs, completion marker, and source path containment before storing a revision. Each book retains the newest three semantic revisions. Manual export and import remain under **Advanced operations** for troubleshooting.
 
 ## Excerpt Colors
 
@@ -129,12 +146,14 @@ ReadMark is local-first. Runtime data may include:
 - progress;
 - excerpt text.
 - callout type, title, fold state, and cleaned plain-text body.
+- Book World semantic revisions, source IDs, and quality reports when Labs is enabled.
 
 Do not commit runtime data:
 
 ```text
 data.json
 books/
+maps/
 node_modules/
 ```
 
@@ -198,4 +217,4 @@ assets/readmark-icon.svg
 
 ## Status
 
-ReadMark is usable but still young. The current focus is stabilizing reading detection, polishing the sidebar UI, and keeping the data model simple enough for long-term local ownership.
+ReadMark is usable but still young. Book World is an experimental alpha: semantic extraction, scoring, the 2.5D renderer, and AI-generated world assets are delivered in separate milestones.
