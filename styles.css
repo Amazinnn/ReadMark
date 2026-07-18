@@ -1189,6 +1189,17 @@
   margin-top: 3px;
 }
 
+.mrt-world-control-metaphor {
+  color: var(--text-muted);
+  display: -webkit-box;
+  font-size: 10px;
+  line-height: 1.35;
+  margin-top: 5px;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
 .mrt-world-control-row {
   align-items: center;
   display: grid;
@@ -1316,6 +1327,43 @@
 
 .mrt-world-fallback-row {
   margin: 0 18px;
+}
+
+.mrt-world-concept-image {
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 6px;
+  display: block;
+  margin: 12px 0;
+  object-fit: cover;
+  width: 100%;
+}
+
+.mrt-world-art-summary {
+  border-left: 3px solid var(--interactive-accent);
+  padding: 4px 0 4px 11px;
+}
+
+.mrt-world-art-palette {
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.mrt-world-art-swatch {
+  border: 1px solid color-mix(in srgb, var(--text-normal) 24%, transparent);
+  border-radius: 3px;
+  height: 20px;
+  width: 28px;
+}
+
+.mrt-world-art-counts {
+  color: var(--text-muted);
+  display: flex;
+  font-size: var(--font-ui-smaller);
+  font-weight: 700;
+  gap: 12px;
+  margin-top: 8px;
 }
 
 .mrt-map-import-summary {
