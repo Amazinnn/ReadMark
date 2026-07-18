@@ -1,7 +1,7 @@
 {
   "id": "readmark",
   "name": "ReadMark",
-  "version": "0.6.0-alpha.2",
+  "version": "0.6.0-beta.1",
   "minAppVersion": "1.5.0",
   "description": "Track local Markdown reading and build experimental, source-grounded Book Worlds through an external companion runner.",
   "author": "",
