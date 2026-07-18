@@ -96,7 +96,7 @@ ReadMark turns local Markdown files into a lightweight reading shelf inside Obsi
 
 ## Book World Labs
 
-`0.6.0-alpha.1` introduces the data foundation for **Book World**, an experimental central Obsidian view. Labs is disabled by default and this alpha does not yet render the planned 2.5D map.
+`0.6.0-alpha.2` adds the semantic and scoring foundation for **Book World**, an experimental central Obsidian view. Labs is disabled by default and this alpha does not yet render the planned 2.5D map.
 
 1. Install and build the separate `readmark-map-runner` Node/TypeScript CLI beside the vault, or select its installation directory once.
 2. Open a tracked book and choose **Open Book World -> Enable and configure**.
@@ -106,6 +106,8 @@ ReadMark turns local Markdown files into a lightweight reading shelf inside Obsi
 The API Key exists transiently in the setup field and is sent to the Runner over stdin. Only the Runner stores it, as plaintext in its ignored local `config.json`; ReadMark never writes it to plugin settings, task artifacts, logs, or map state. The default text model is `MiniMax-M3`. Closing Obsidian or cancelling a task stops the child process, and **Continue generation** resumes from Runner checkpoints.
 
 Automatic import re-reads the current Markdown and verifies the protocol version, task checksums, source fingerprint, source IDs, completion marker, and source path containment before storing a revision. Each book retains the newest three semantic revisions. Manual export and import remain under **Advanced operations** for troubleshooting.
+
+While the tracked book remains in the central reading area, ReadMark observes the centered source sentence on the existing 0.5-second tick. A sentence becomes read once after 2.5 seconds of continuous exposure; no per-tick event log is stored. Scores are recomputed from first-read exposures and current excerpts using defaults of read `1`, bold `2`, highlight `3`, annotation `4`, callout `4`, and commentary `6`. Each behavior contributes one fixed total weight, normalized across related concepts, so adding more links cannot inflate the score. Deleting an excerpt removes its contribution automatically.
 
 ## Excerpt Colors
 
