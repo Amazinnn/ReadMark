@@ -8,10 +8,10 @@
 
 **A local-first reading tracker for Markdown books in Obsidian.**
 
-Track reading time, progress, highlights, bold excerpts, annotations, and commentary excerpts without sending your reading life to a service.
+Track reading time, progress, highlights, bold excerpts, annotations, commentary, and Obsidian callout excerpts without sending your reading life to a service.
 
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.4.6-4719b8?style=flat-square">
+  <img alt="Version" src="https://img.shields.io/badge/version-0.5.0-4719b8?style=flat-square">
   <img alt="Obsidian" src="https://img.shields.io/badge/Obsidian-1.5.0%2B-7c3aed?style=flat-square">
   <img alt="Desktop only" src="https://img.shields.io/badge/Desktop-only-e1b437?style=flat-square">
   <img alt="Local first" src="https://img.shields.io/badge/Local--first-yes-2f855a?style=flat-square">
@@ -77,10 +77,24 @@ ReadMark turns local Markdown files into a lightweight reading shelf inside Obsi
     <td>Detects <code>==highlight==%%comment%%</code> and <code>**bold**%%comment%%</code> as one commentary excerpt.</td>
   </tr>
   <tr>
+    <td><strong>Callout excerpts</strong></td>
+    <td>Detects complete Obsidian callouts such as <code>&gt; [!NOTE]</code>, including nested, foldable, title-only, aliased, and custom types.</td>
+  </tr>
+  <tr>
+    <td><strong>Custom colors</strong></td>
+    <td>Provides live color controls for all five excerpt types and six callout semantic groups, with precise HEX input and one-click resets.</td>
+  </tr>
+  <tr>
     <td><strong>Stats</strong></td>
     <td>Shows today's reading, current-book stats, all-books stats, hourly distribution, and a monthly heatmap.</td>
   </tr>
 </table>
+
+## Excerpt Colors
+
+Open **Settings -> ReadMark -> Excerpt colors** (`摘录配色`) to customize the five excerpt categories and six callout semantic groups. The native color picker and HEX field stay synchronized, changes appear immediately in the sidebar, and every color can be reset individually or as a complete palette.
+
+Callouts remain one category in statistics. Their semantic colors only distinguish information, emphasis, success, warning, danger, and neutral callout cards.
 
 ## Why ReadMark
 
@@ -114,6 +128,7 @@ ReadMark is local-first. Runtime data may include:
 - reading sessions;
 - progress;
 - excerpt text.
+- callout type, title, fold state, and cleaned plain-text body.
 
 Do not commit runtime data:
 
