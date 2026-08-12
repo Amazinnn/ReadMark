@@ -270,6 +270,12 @@ The implementation must first add failing cross-repository Schema/validator/hash
 
 Only after the corrected two-repository protocol fixtures pass may Source Snapshot implementation resume. Its acceptance must prove normalized data rows plus exact raw audit, no separator-row Unit, closed callout metadata and nesting order, exact UTF-16 child/parent coordinates, deterministic over-limit splitting/failure, exact source hash, excluding-self canonical Snapshot hash, and zero provider/image calls.
 
+### Evidence Cluster Implementation Gate
+
+Structural ADR Q499 replaces the previously blocked clustering placeholder with `evidence-cluster-builder@1`. Implement it as a pure deterministic module between accepted shared preparation/Attributes and the existing explicit-cluster Run executor. The module receives only Snapshot, filtered TermBindings, complete `sourceTermIndex`, accepted Source Disposition, accepted Attributes, and target count; it must not call a provider, embedding service, fallback, or image route.
+
+TDD must lock integer score arithmetic and cross-multiplied ties before implementation, then cover full Linked Source coverage, three-proposal capacity, target/max termination, canonical ordering, exact cluster-local Term bindings, exact-render 40,000-token packing, atomic oversize failure, Q354 split pairs, and global split budget. After focused acceptance, connect its ordered output directly to the already reviewed Run executor; absent or malformed clusters remain hard failures and there is no compatibility inference from v2 artifacts.
+
 ## Semantic v3 Recovery And Acceptance
 
 This section specifies acceptance behavior to implement. The plugin permits one active semantic task globally. Inspect task identity, book ID, source fingerprint, Snapshot hash, stage versions, and `complete.json` once at startup. A stopped v3 task is marked interrupted; the single Continue action resumes it only after the user invokes it. Never delete valid checkpoints or restart completed source batches.

@@ -239,3 +239,7 @@ The preceding next-identifier statement is retained and superseded by the follow
 - Checkpoint consequence of Q498: A protocol-v3 bundle/validator identity mismatch invalidates every checkpoint that binds that identity, even if its stage Prompt bytes are otherwise unchanged. Exact same-source input under the corrected parser receives a new Snapshot hash and therefore cannot reuse `@1` semantic checkpoints. Fixtures must prove `term-extraction@2` accepts only the closed marker variants, rejects callout fields on non-callout markers and missing/extra callout fields, and preserves the zero-SenseNova/image assertion.
 
 The next decision identifier is **Q499**. Prompt behavior is decision-complete through Q498; real-provider verification, image work, and 2.5D remain separate later phases.
+
+Structural ADR Q499 consumes the identifier for the deterministic Evidence Cluster builder. It does not change any model-visible Concept Formation contract, Schema, example, or Prompt byte: it freezes only the deterministic dynamic-input producer, exact input order already required by Q438, local binding completeness, split-pair authorization, and the 40,000-token pre-provider terminal. Its checkpoint/input-hash change invalidates Evidence Clusters and all three Runs downstream without incrementing `concept-formation@1`.
+
+The next decision identifier is **Q500**.
