@@ -253,3 +253,7 @@ The next decision identifier is **Q501**.
 Structural ADR Q501 consumes the identifier and supersedes only Q438's cross-cluster earliest-Source ordering with Q499 seed-selection order. One atomic Concept Formation request still contains one cluster with the same closed fields and cluster-internal Source order, so System/User bytes, canonical Schema, examples, and `concept-formation@1` remain unchanged. The changed deterministic call/input order invalidates Evidence Cluster and Run descendants through their input hashes.
 
 The next decision identifier is **Q502**.
+
+Structural ADR Q502 consumes the identifier for deterministic post-Generic-Filter Term Pool finalization. It changes no Prompt contract or model-visible byte. Attribute Proposal continues to receive the complete finalized pool in its deterministic order; Evidence Cluster Formation consumes its authoritative `percentileRank` and complete bindings. The finalizer identity/input hash invalidates Attributes and all downstream stages without incrementing `generic-filter@1`, `attribute-proposal@1`, or any Run Prompt.
+
+The next decision identifier is **Q503**.

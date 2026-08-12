@@ -280,6 +280,12 @@ Prompt ADR Q500 preserves Q384's two-message boundary during Term Extraction v2 
 
 Structural ADR Q501 removes the pre-Q499 Run executor's incorrect mutual-exclusion and earliest-Source cluster assumptions. Run validation must accept overlapping admitted sets while retaining exact per-cluster authority, selection-order processing, builder proposal cap three, and global final mount cap three. Repair scopes use a Snapshot-ordered unique Source union. This validator correction changes no Concept Formation Prompt byte.
 
+### Filtered Term Pool Finalization Gate
+
+Structural ADR Q502 defines `term-pool-finalizer@1` between Generic Filter and Attribute Proposal. Implement it as a provider-free deterministic module; no fixture or caller may directly invent `percentileRank`. It recomputes complete Linked bindings, integer ranking signals and duplicate penalties, applies the exact 600-global plus 200-distribution selection, materializes tied integer percentiles, prunes `sourceTermIndex`, and enforces the legal Concept-count minimum.
+
+TDD must lock each integer signal and tie before implementation, then cover multi-bucket de-duplication, 800 ceiling, minimum failure, callout non-signal, table marker boundary, and exact repeatability. Connect finalized TermBindings to Attributes, Q499 clustering, Revisions, and scoring only after focused acceptance. This module does not authorize a new extraction heuristic, stopword table, model call, or compatibility rank.
+
 ## Semantic v3 Recovery And Acceptance
 
 This section specifies acceptance behavior to implement. The plugin permits one active semantic task globally. Inspect task identity, book ID, source fingerprint, Snapshot hash, stage versions, and `complete.json` once at startup. A stopped v3 task is marked interrupted; the single Continue action resumes it only after the user invokes it. Never delete valid checkpoints or restart completed source batches.
