@@ -23,12 +23,15 @@ Speculative fallbacks, guessed semantic outcomes, silent error swallowing, and c
 
 ## Current Frozen Identities
 
-- Prompt set: `5c27688d23648e26fe5c8102da81e87ae36d57002ad2cf17650e93c7950b81b1`
+- Prompt set: `0a0018eae0f4bc822f77106dcc08806ab82a7a6565b4bd70e3efcc210e3c3528`
+- Superseded Prompt set retained for audit: `5c27688d23648e26fe5c8102da81e87ae36d57002ad2cf17650e93c7950b81b1` was the pre-Q494 identity and must not be reused by current checkpoints.
 - Stage Schema manifest: `fe1f1a94582b92dee656a7c4cdb06db269859b7a5456eedb4c9f1571768bd231`
 - Render template: `fc8e3f49bd558fdd7ab2caae7be012b018381020b565d6769191e39e07b1d87a`
 - Literal Prompt fixture: `e78a06415ccff8a6c0006c640704470b7521ff3e8623730fbe48d0cc0940af28`
 
 Identity changes require the corresponding retained ADR supersession, contract/version change, invalidation assertion, and explicit fixture review.
+
+Q494 advances Summary Critic to `summary-critic@2`: contract hash `4a6ffcc2091d14dd002848df4a9fe00d8faadcfbadf17e6380914319cac2f6e1`, example pack `summary-critic-zh@2`, rendering hash `941fafe527ab1367e4b5d5c8af734ab4fe4330a16e9d198136ec9224a0d151f3`. Runner commit `005c8ed` passed 16/16 focused Prompt/checkpoint gates, combined Prompt/Run gates 26/26, typecheck, and independent review `Ready`. Its push remains blocked by the missing Runner remote.
 
 ## Development Checkpoints
 
