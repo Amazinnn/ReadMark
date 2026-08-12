@@ -302,6 +302,8 @@ Concept Formation quarantine must be produced during the current Run by the actu
 
 Add one v3-only orchestrator that loads the closed Task Bundle, carries its already validated canonical Snapshot bytes, executes the fixed stage order, finalizes Terms, builds Evidence Clusters, executes three independent Runs, assembles three Revisions, and invokes the accepted atomic publication boundary. It emits only the closed Runner events and never imports the old `long-pipeline`, confirmation, art, image, or protocol-v2 task loader.
 
+Runner commit `a5fb131` extends only the accepted v3 loader return value with those already validated canonical Snapshot bytes. The focused Task Bundle suite remained 6/6 and typecheck passed. Orchestration must pass this exact value to publication; reserializing the parsed Snapshot is an eval failure. The commit is local because the Runner remote is still absent.
+
 TDD is split into reviewable gates: text-stage executor and ledger; Term Extraction packing; live Formation quarantine/remount; then a scripted fake-provider full pipeline and checkpoint-resume fixture. The fake E2E must reconcile ledger counts to observed calls/reuse, prove `complete.json` is last, prove checkpoint records contain no messages/responses/Source excerpts/endpoints/credentials, and assert zero image, SenseNova, art, 2.5D, and real-network calls. CLI activation remains blocked until this integration passes independent review.
 
 ### Private v3 Task Bundle Gate
