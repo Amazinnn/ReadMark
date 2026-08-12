@@ -249,3 +249,7 @@ The next decision identifier is **Q500**.
 - Q500: Q384 controls message placement and Q496 does not change the shared System constitution. The Q496 callout-metadata rule is written into `term-extraction@2`'s stage-local task contract inside the User message `TASK_GOAL_AUTHORITY` section, with its closed marker shape enforced by the User message dynamic-input validator. The earlier Q496 phrase “The System rules” is retained and superseded only as a placement error; it means the authoritative Term Extraction stage rules, not the wire System message. Constitution identity and bytes remain unchanged. Therefore only Term Extraction's contract/example/render identities and the aggregate Prompt-set fingerprint advance; no other stage contract increments because of this correction. Exact-render fixtures must prove the System content remains byte-identical to the pre-Q496 constitution while the User stage contract contains the new rule.
 
 The next decision identifier is **Q501**.
+
+Structural ADR Q501 consumes the identifier and supersedes only Q438's cross-cluster earliest-Source ordering with Q499 seed-selection order. One atomic Concept Formation request still contains one cluster with the same closed fields and cluster-internal Source order, so System/User bytes, canonical Schema, examples, and `concept-formation@1` remain unchanged. The changed deterministic call/input order invalidates Evidence Cluster and Run descendants through their input hashes.
+
+The next decision identifier is **Q502**.

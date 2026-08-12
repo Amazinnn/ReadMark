@@ -278,6 +278,8 @@ TDD must lock integer score arithmetic and cross-multiplied ties before implemen
 
 Prompt ADR Q500 preserves Q384's two-message boundary during Term Extraction v2 implementation. Callout metadata rules belong to the Term stage contract in the User message; the shared System constitution must remain byte-identical. Tests must reject any implementation that changes the constitution hash or increments unrelated stage contracts.
 
+Structural ADR Q501 removes the pre-Q499 Run executor's incorrect mutual-exclusion and earliest-Source cluster assumptions. Run validation must accept overlapping admitted sets while retaining exact per-cluster authority, selection-order processing, builder proposal cap three, and global final mount cap three. Repair scopes use a Snapshot-ordered unique Source union. This validator correction changes no Concept Formation Prompt byte.
+
 ## Semantic v3 Recovery And Acceptance
 
 This section specifies acceptance behavior to implement. The plugin permits one active semantic task globally. Inspect task identity, book ID, source fingerprint, Snapshot hash, stage versions, and `complete.json` once at startup. A stopped v3 task is marked interrupted; the single Continue action resumes it only after the user invokes it. Never delete valid checkpoints or restart completed source batches.
