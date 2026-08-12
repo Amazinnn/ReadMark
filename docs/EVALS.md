@@ -23,6 +23,8 @@ Speculative fallbacks, guessed semantic outcomes, silent error swallowing, and c
 
 The top-level Runner orchestration gate is currently RED by interface audit, not by a failing implementation. Three closures are required before code resumes: canonical Attribute distribution-bucket encoding/order/bound; an invocation observation boundary that preserves actual executor calls/trace for Provider Ledger accumulation; and an executable Generic Filter atomic-discard re-extract/exclude boundary. Any fabricated substitute is an eval failure. No orchestrator files were created; the fresh Runner baseline remains 277/277 with typecheck and build passing.
 
+Provider Ledger observation acceptance: Runner commits `da2e4c3` through `2faef3c`, focused 19/19, typecheck green, independent review `Ready`. The accepted boundary uses an executor-authenticated frozen accounting envelope, exact call/retry/repair/fallback equations, independent checkpoint identity and historical provenance, per-ledger exactly-once consumption, and atomic multi-provider batch recording. The remaining orchestration RED items are canonical Attribute distribution buckets and Generic Filter atomic-discard recovery.
+
 Plugin Semantic Report pure-model acceptance: focused 6/6, fresh aggregate Plugin suite green, no-emit TypeScript green, and independent review `Ready`. Review-driven negatives bind the exact selected Revision bytes to `revisionHash` and prove disposition input order cannot change Snapshot-ordered exclusion output. The gate exposes only approved report data and memory-only book-scoped interaction state; active Obsidian view wiring is still pending.
 
 ## Current Frozen Identities
