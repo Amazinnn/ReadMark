@@ -243,3 +243,9 @@ The next decision identifier is **Q499**. Prompt behavior is decision-complete t
 Structural ADR Q499 consumes the identifier for the deterministic Evidence Cluster builder. It does not change any model-visible Concept Formation contract, Schema, example, or Prompt byte: it freezes only the deterministic dynamic-input producer, exact input order already required by Q438, local binding completeness, split-pair authorization, and the 40,000-token pre-provider terminal. Its checkpoint/input-hash change invalidates Evidence Clusters and all three Runs downstream without incrementing `concept-formation@1`.
 
 The next decision identifier is **Q500**.
+
+### Q500: Term Extraction v2 Message Placement Correction
+
+- Q500: Q384 controls message placement and Q496 does not change the shared System constitution. The Q496 callout-metadata rule is written into `term-extraction@2`'s stage-local task contract inside the User message `TASK_GOAL_AUTHORITY` section, with its closed marker shape enforced by the User message dynamic-input validator. The earlier Q496 phrase “The System rules” is retained and superseded only as a placement error; it means the authoritative Term Extraction stage rules, not the wire System message. Constitution identity and bytes remain unchanged. Therefore only Term Extraction's contract/example/render identities and the aggregate Prompt-set fingerprint advance; no other stage contract increments because of this correction. Exact-render fixtures must prove the System content remains byte-identical to the pre-Q496 constitution while the User stage contract contains the new rule.
+
+The next decision identifier is **Q501**.

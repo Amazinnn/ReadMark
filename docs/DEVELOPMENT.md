@@ -276,6 +276,8 @@ Structural ADR Q499 replaces the previously blocked clustering placeholder with 
 
 TDD must lock integer score arithmetic and cross-multiplied ties before implementation, then cover full Linked Source coverage, three-proposal capacity, target/max termination, canonical ordering, exact cluster-local Term bindings, exact-render 40,000-token packing, atomic oversize failure, Q354 split pairs, and global split budget. After focused acceptance, connect its ordered output directly to the already reviewed Run executor; absent or malformed clusters remain hard failures and there is no compatibility inference from v2 artifacts.
 
+Prompt ADR Q500 preserves Q384's two-message boundary during Term Extraction v2 implementation. Callout metadata rules belong to the Term stage contract in the User message; the shared System constitution must remain byte-identical. Tests must reject any implementation that changes the constitution hash or increments unrelated stage contracts.
+
 ## Semantic v3 Recovery And Acceptance
 
 This section specifies acceptance behavior to implement. The plugin permits one active semantic task globally. Inspect task identity, book ID, source fingerprint, Snapshot hash, stage versions, and `complete.json` once at startup. A stopped v3 task is marked interrupted; the single Continue action resumes it only after the user invokes it. Never delete valid checkpoints or restart completed source batches.
