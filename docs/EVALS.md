@@ -16,7 +16,7 @@ Speculative fallbacks, guessed semantic outcomes, silent error swallowing, and c
 | --- | --- | --- |
 | Protocol and scoring | Closed protocol roots; Ajv 2020-12 conformance; byte-identical Schema authority; literal matcher; deterministic IDs, representatives, Related edges, scoring, selection, and cross-repository vectors | Accepted after independent review |
 | Prompt runtime | Fifteen literal exact-render contracts; strict single JSON; inert dynamic data; stage-local Schema and validator identity; repair/split/fallback/discard boundaries; actual provider provenance; selective checkpoint reuse; zero image/SenseNova route | Accepted after independent review |
-| Shared semantic preparation | Term literal materialization and audited nonliteral drop; independent Disposition review and anonymous adjudication; Generic Filter process-discard boundary; Attribute proposal, Critic, one repair, and second-failure terminal | In progress |
+| Shared semantic preparation | Term literal materialization and audited nonliteral drop; explicit deterministic anomaly input; outcome/source-distribution stratified review; marker-forced fresh review and anonymous adjudication; strict 100-unit/40,000-token request caps; Generic Filter process-discard boundary; Attribute proposal, Critic, one repair, and second-failure terminal | Accepted after independent review |
 | Three semantic Runs and publication | Three independent Concept/Summary Runs, Critics, deterministic revisions, scoring/selection, atomic artifacts, `complete.json` last | Pending |
 | Plugin import and report | Source Snapshot v3, double freshness, independent validation/scoring, immutable import, history retention, Semantic Report | Pending |
 | Cross-repository fake E2E | Fake-provider Runner publication through plugin import; full tests/builds; privacy and deprecated-route scans | Pending |
@@ -35,6 +35,7 @@ Identity changes require the corresponding retained ADR supersession, contract/v
 - Protocol/scoring Runner suite reached 103 passing tests before Prompt integration.
 - Prompt/runtime final review reached 153 passing Runner tests with no Critical or Important findings.
 - Plugin protocol/Ajv focused gates remained green after shared PromptTrace changes.
+- Shared semantic-preparation focused gates reached 12/12; the fresh Runner suite reached 165/165 with typecheck, build, and scoped diff checks passing.
 - No real text model, SenseNova, image, art, or 2.5D call has been made during these gates.
 
 ## 2026-08-12 Versioned Implementation Record
@@ -44,4 +45,6 @@ Identity changes require the corresponding retained ADR supersession, contract/v
 - Runner Prompt runtime commit: `801901e`; followed by hermetic-eval correction `59904af`.
 - Runner has no configured remote. Its commits are local durable checkpoints; push remains blocked until a repository remote is mechanically identified.
 - A full Runner run exposed one environment-dependent config test: it inherited a host provider variable instead of using the fixture value. The corrected test passes an explicit empty environment. Fresh evidence after correction: config focused 8/8, Runner full 157/157, typecheck and build passed.
-- Shared semantic-preparation focused tests currently pass 4/4 and are awaiting independent review before commit.
+- Runner shared semantic-preparation commit: `bd850c6`. Independent acceptance review returned `Ready` with no remaining Critical or Important contract deviation in the reviewed boundary.
+- Shared preparation rejects any Source Unit estimated above 40,000 input tokens before provider invocation, requires explicit unique snapshot-known mechanical-anomaly IDs, and samples across linked/excluded outcomes and source distribution. Successful strict Term restoration does not fabricate a disposition-repair record; actual linked-to-excluded repairs require a closed exclusion reason.
+- Push of `bd850c6` remains mechanically blocked because the Runner repository still has no configured push destination. No remote was guessed or added.

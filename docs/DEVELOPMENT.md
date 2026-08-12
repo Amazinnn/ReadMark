@@ -240,6 +240,14 @@ Each commit must remain narrowly scoped, pass its applicable synthetic gates, ex
 
 Implementation must avoid speculative fallback behavior, silent error swallowing, compatibility paths without an accepted consumer, and guessed semantic outcomes. Closed validation, fail-closed boundaries, bounded recovery, and explicit failure terminals required by Q001-Q493 are contract behavior rather than optional defensive additions.
 
+### Reviewed Implementation Checkpoint: Shared Preparation
+
+Runner commit `bd850c6` implements the reviewed shared pre-Run boundary. Deterministic callers must supply the unique snapshot-known mechanical-anomaly Source IDs explicitly, including an explicit empty list. The review sample applies its 5% target, minimum 20 when possible, and cap 100 independently of forced marker/anomaly additions, and deterministically covers both disposition outcomes and source distribution when those strata exist.
+
+The Source Disposition request packer treats both 100 Units and 40,000 estimated input tokens as hard limits. A single over-limit Source Unit reaches an explicit pre-provider terminal instead of being sent as an oversized singleton. Generic Filter only bisects and locally discards after the typed structural-recovery terminal; authentication and other runtime failures propagate unchanged. A successful strict Term restoration leaves the Source linked and is not recorded as a disposition repair. An actual linked-to-excluded repair has a mandatory closed exclusion reason plus stage, Source ID, and `filterDiscard` trigger.
+
+Acceptance evidence was focused 12/12, fresh Runner 165/165, typecheck/build green, scoped diff check green, and independent review `Ready`. No real provider, SenseNova, image, art, or 2.5D route was called. The Runner commit remains local because that repository has no configured push destination; this is a version-maintenance blocker, not authority to invent a remote.
+
 ## Semantic v3 Recovery And Acceptance
 
 This section specifies acceptance behavior to implement. The plugin permits one active semantic task globally. Inspect task identity, book ID, source fingerprint, Snapshot hash, stage versions, and `complete.json` once at startup. A stopped v3 task is marked interrupted; the single Continue action resumes it only after the user invokes it. Never delete valid checkpoints or restart completed source batches.
