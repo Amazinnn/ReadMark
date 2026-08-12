@@ -23,6 +23,10 @@ Speculative fallbacks, guessed semantic outcomes, silent error swallowing, and c
 
 ## Current Frozen Identities
 
+- Protocol Schema bundle: `readmark-protocol-v3@2`
+- Protocol validator: `protocol-v3@2`
+- Protocol Schema manifest: `bacedcbce9ffc052c419b8f96c4f0efa429343454d6649d62e9e91d495065dae`
+- Superseded protocol manifest retained for rejection fixtures: `7a422371311a5394ffe02a966579e0291535f93efbb267219e0b9bd1b10d3998` belonged to protocol-v3 `@1` and must not be imported or reused.
 - Prompt set: `0a0018eae0f4bc822f77106dcc08806ab82a7a6565b4bd70e3efcc210e3c3528`
 - Superseded Prompt set retained for audit: `5c27688d23648e26fe5c8102da81e87ae36d57002ad2cf17650e93c7950b81b1` was the pre-Q494 identity and must not be reused by current checkpoints.
 - Stage Schema manifest: `fe1f1a94582b92dee656a7c4cdb06db269859b7a5456eedb4c9f1571768bd231`
@@ -67,3 +71,5 @@ Q494 advances Summary Critic to `summary-critic@2`: contract hash `4a6ffcc2091d1
 - Prompt ADR Q500 corrects Q496's message-placement wording: the callout-metadata rule is in `term-extraction@2` User `TASK_GOAL_AUTHORITY`, while the shared System constitution remains byte-identical. Exact-render evals must assert unchanged constitution identity and unchanged non-Term stage contract versions.
 - Structural ADR Q501 corrects the accepted pre-Q499 Run validator: overlapping admitted Source sets are legal, cluster-internal duplicates remain illegal, Q499 selection order replaces Q438's cross-cluster earliest-Source order, and repair scope uses the Snapshot-ordered unique Source union. Combined Cluster/Run fixtures must distinguish builder proposal cap three from final mount cap three and assert no Prompt identity change.
 - Structural ADR Q502 removes arbitrary fixture/caller `percentileRank` authority. `term-pool-finalizer@1` evals must cover exact integer frequency/distribution/heading/reader/technical signals, callout exclusion, Q250 bigram near-duplicate penalty and winner, global/tie order, 600+200 selection with bucket de-duplication, percentile endpoints/ties, complete Linked binding/index equality, hard minimum, and byte-identical repeatability. The finalizer must make zero provider, fallback, embedding, SenseNova, image, art, or 2.5D calls.
+- Corrected protocol-v3 `@2` acceptance is recorded at Runner commit `ead5f6b`. RED/GREEN coverage includes normalized table-row raw audit, closed callout markers, exact source and excluding-self Snapshot hashes, split-parent containment, singleton rejection, and sibling rejection when equal offsets hide different line/column coordinates. Independent re-review returned `Ready`; focused Runner protocol gates reached 22/22, the corrected Snapshot file 5/5, Plugin mirror 2/2, and Runner typecheck passed.
+- The Runner still has no configured push destination, so `ead5f6b` is a local durable checkpoint. The Plugin documentation branch records and pushes this acceptance without publishing ignored source or tests.
