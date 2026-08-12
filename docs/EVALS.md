@@ -21,6 +21,8 @@ Speculative fallbacks, guessed semantic outcomes, silent error swallowing, and c
 | Plugin import and report | Source Snapshot v3, double freshness, independent validation/scoring, immutable import, history retention, Semantic Report | Pending |
 | Cross-repository fake E2E | Fake-provider Runner publication through plugin import; full tests/builds; privacy and deprecated-route scans | Pending |
 
+The top-level Runner orchestration gate is currently RED by interface audit, not by a failing implementation. Three closures are required before code resumes: canonical Attribute distribution-bucket encoding/order/bound; an invocation observation boundary that preserves actual executor calls/trace for Provider Ledger accumulation; and an executable Generic Filter atomic-discard re-extract/exclude boundary. Any fabricated substitute is an eval failure. No orchestrator files were created; the fresh Runner baseline remains 277/277 with typecheck and build passing.
+
 ## Current Frozen Identities
 
 - Protocol Schema bundle: `readmark-protocol-v3@2`
