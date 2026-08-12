@@ -203,6 +203,8 @@ No failed or partial task writes `complete.json`. Valid intermediate checkpoints
 
 The Runner writes temporary artifacts, validates them, atomically publishes all three candidate files and the sanitized Selection Report, and writes `complete.json` last. Candidate scoring and selection use deterministic integer ten-thousandths and the accepted stable tie order.
 
+Reviewed publication commit `974664e` stages the exact Source Snapshot, three candidate Revisions, Selection Report, and completion marker inside the existing Runner task directory without replacing or deleting checkpoints. It validates staged bytes, atomically replaces retryable non-completion artifacts, verifies their exact final bytes, and writes `complete.json` last. A mismatched or invalid in-flight completion marker is retracted before failure; a pre-existing valid completion marker is a zero-write conflict. Independent review concluded `Ready`; no real provider or image route was involved.
+
 The plugin rebuilds the current Source Snapshot before full completion validation and again immediately before switching its index. It validates every referenced hash and closed Schema, independently audits all three candidates, recomputes their scores and tie-break, and rejects any Runner/plugin mismatch.
 
 Successful import writes immutable Snapshot, selected Revision, and sanitized Selection Report artifacts before atomically switching the small `state.json` index. The current report remains visible during regeneration and survives failure or interruption. Each book retains the newest three successful imports; removal of an unreferenced historical file is best-effort and never rolls back a valid index. Runner tasks and checkpoints are never modified by plugin retention.
