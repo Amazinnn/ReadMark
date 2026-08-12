@@ -254,6 +254,8 @@ The next code boundary accepts an explicit ordered Evidence Cluster set and impl
 
 The structural ADR requires deterministic term-seeded weighted-coverage clustering, balancing term quality, uncovered-source gain, distribution, and overlap penalty, but Q001-Q493 do not freeze numeric weights, exact tie order, or a termination formula. Until that formula receives a retained ADR decision, implementation must not invent defaults. The Run execution boundary therefore requires clusters from a separately accepted deterministic cluster builder and fails on absent or malformed cluster input. This does not authorize a free model-generated cluster list, embeddings, heading-only grouping, or compatibility with semantic v2.
 
+Implementation review mechanically proved that Q461's Summary Critic firewall conflicts with the version-one shared representative renderer inherited from Q455. Prompt ADR Q494 resolves the conflict before code changes: Summary generation/rewrite keep contextual representative records, while Summary Critic v2 receives only `sourceId` and exact `text`. The stage-local change invalidates only Summary Critic and its declared downstream checkpoints; exact-render and negative fixtures must change explicitly and never auto-rewrite.
+
 ## Semantic v3 Recovery And Acceptance
 
 This section specifies acceptance behavior to implement. The plugin permits one active semantic task globally. Inspect task identity, book ID, source fingerprint, Snapshot hash, stage versions, and `complete.json` once at startup. A stopped v3 task is marked interrupted; the single Continue action resumes it only after the user invokes it. Never delete valid checkpoints or restart completed source batches.
