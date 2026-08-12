@@ -11,6 +11,7 @@ Last updated: 2026-08-12.
 - The Runner now contains the strict two-message Prompt manifest/runtime, exact-render fixtures, bounded recovery primitives, sanitized PromptTrace, provider identity binding, and selective checkpoint reuse/invalidation.
 - Runner shared semantic preparation is partially implemented: Term materialization and nonliteral audit, independent Source Disposition review/adjudication, Generic Filter discard boundaries, and Attribute proposal/critic/repair are under focused synthetic evaluation.
 - Three independent semantic Runs, atomic Runner publication, plugin Source Snapshot/import, and Semantic Report activation are not complete.
+- Versioned checkpoints now exist for documentation, protocol/scoring, and Prompt runtime. The plugin documentation branch is pushed; the Runner feature branch has local commits but no configured remote.
 - No fresh private MiniMax-M3 v3 end-to-end task has been run.
 - No v3 candidate Revisions have been automatically imported and accepted in Obsidian.
 - Existing local implementation changes in both repositories predate this documentation normalization and must not be reverted.

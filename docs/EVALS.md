@@ -36,3 +36,12 @@ Identity changes require the corresponding retained ADR supersession, contract/v
 - Prompt/runtime final review reached 153 passing Runner tests with no Critical or Important findings.
 - Plugin protocol/Ajv focused gates remained green after shared PromptTrace changes.
 - No real text model, SenseNova, image, art, or 2.5D call has been made during these gates.
+
+## 2026-08-12 Versioned Implementation Record
+
+- Plugin documentation authority commit: `688f02b` on `feat/beta3-long-text`; pushed to the verified plugin remote.
+- Runner protocol and scoring commit: `2be3c2a` on `feat/protocol-v3-semantic-pipeline`.
+- Runner Prompt runtime commit: `801901e`; followed by hermetic-eval correction `59904af`.
+- Runner has no configured remote. Its commits are local durable checkpoints; push remains blocked until a repository remote is mechanically identified.
+- A full Runner run exposed one environment-dependent config test: it inherited a host provider variable instead of using the fixture value. The corrected test passes an explicit empty environment. Fresh evidence after correction: config focused 8/8, Runner full 157/157, typecheck and build passed.
+- Shared semantic-preparation focused tests currently pass 4/4 and are awaiting independent review before commit.
