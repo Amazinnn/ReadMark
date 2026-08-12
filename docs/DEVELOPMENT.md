@@ -262,6 +262,14 @@ Post-Critic processing applies global name, mount-cap, direct-anchor, one-mount 
 
 Implementation review mechanically proved that Q461's Summary Critic firewall conflicts with the version-one shared representative renderer inherited from Q455. Prompt ADR Q494 resolves the conflict before code changes: Summary generation/rewrite keep contextual representative records, while Summary Critic v2 receives only `sourceId` and exact `text`. The stage-local change invalidates only Summary Critic and its declared downstream checkpoints; exact-render and negative fixtures must change explicitly and never auto-rewrite.
 
+### Source Snapshot v3 Contract-Correction Gate
+
+Plugin Snapshot TDD mechanically exposed four pre-release protocol contradictions before acceptance: normalized table-row text could not retain an exact raw row under `TextAudit`; callout type/title had no closed marker fields; deterministic long-Unit children had no parent-coordinate field; and `snapshotHash` had no excluding-self canonicalization rule. Structural ADR Q495-Q498 and Prompt ADR Q496/Q498 now resolve these before further implementation.
+
+The implementation must first add failing cross-repository Schema/validator/hash fixtures, then advance the byte-identical bundle, Schema ID, and validator to `@2`. It must not add an `@1` compatibility reader, optional catch-all metadata, guessed callout encoding, permissive hash acceptance, or migration path. Existing v2 and protocol-v3 `@1` artifacts remain untouched on disk but are stale and rejected. Term Extraction alone advances to `@2`; all semantic descendants invalidate because the Source Snapshot/Term input changed, while unrelated Prompt contracts retain their versions.
+
+Only after the corrected two-repository protocol fixtures pass may Source Snapshot implementation resume. Its acceptance must prove normalized data rows plus exact raw audit, no separator-row Unit, closed callout metadata and nesting order, exact UTF-16 child/parent coordinates, deterministic over-limit splitting/failure, exact source hash, excluding-self canonical Snapshot hash, and zero provider/image calls.
+
 ## Semantic v3 Recovery And Acceptance
 
 This section specifies acceptance behavior to implement. The plugin permits one active semantic task globally. Inspect task identity, book ID, source fingerprint, Snapshot hash, stage versions, and `complete.json` once at startup. A stopped v3 task is marked interrupted; the single Continue action resumes it only after the user invokes it. Never delete valid checkpoints or restart completed source batches.
