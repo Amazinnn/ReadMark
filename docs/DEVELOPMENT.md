@@ -248,6 +248,12 @@ The Source Disposition request packer treats both 100 Units and 40,000 estimated
 
 Acceptance evidence was focused 12/12, fresh Runner 165/165, typecheck/build green, scoped diff check green, and independent review `Ready`. No real provider, SenseNova, image, art, or 2.5D route was called. The Runner commit remains local because that repository has no configured push destination; this is a version-maintenance blocker, not authority to invent a remote.
 
+### Three-Run Implementation Boundary
+
+The next code boundary accepts an explicit ordered Evidence Cluster set and implements three independent Concept Formation/Critic and Summary/Critic Runs. It may materialize deterministic Concept IDs, Evidence Mounts, representative Sources, summaries, Critic drops, audit counts, and revision ordering from those accepted clusters. Formation calls for different Runs use the same contract/version and do not read another Run's output; Critics receive only their contract-authorized fresh inputs.
+
+The structural ADR requires deterministic term-seeded weighted-coverage clustering, balancing term quality, uncovered-source gain, distribution, and overlap penalty, but Q001-Q493 do not freeze numeric weights, exact tie order, or a termination formula. Until that formula receives a retained ADR decision, implementation must not invent defaults. The Run execution boundary therefore requires clusters from a separately accepted deterministic cluster builder and fails on absent or malformed cluster input. This does not authorize a free model-generated cluster list, embeddings, heading-only grouping, or compatibility with semantic v2.
+
 ## Semantic v3 Recovery And Acceptance
 
 This section specifies acceptance behavior to implement. The plugin permits one active semantic task globally. Inspect task identity, book ID, source fingerprint, Snapshot hash, stage versions, and `complete.json` once at startup. A stopped v3 task is marked interrupted; the single Continue action resumes it only after the user invokes it. Never delete valid checkpoints or restart completed source batches.
