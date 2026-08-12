@@ -27,8 +27,12 @@ Speculative fallbacks, guessed semantic outcomes, silent error swallowing, and c
 - Protocol validator: `protocol-v3@2`
 - Protocol Schema manifest: `bacedcbce9ffc052c419b8f96c4f0efa429343454d6649d62e9e91d495065dae`
 - Superseded protocol manifest retained for rejection fixtures: `7a422371311a5394ffe02a966579e0291535f93efbb267219e0b9bd1b10d3998` belonged to protocol-v3 `@1` and must not be imported or reused.
-- Prompt set: `0a0018eae0f4bc822f77106dcc08806ab82a7a6565b4bd70e3efcc210e3c3528`
+- Prompt set: `c9302630a0099e92fe084bb963231869ef1a905204db868dcd1c9aa96a9eb44d`
+- Superseded Prompt set retained for audit: `0a0018eae0f4bc822f77106dcc08806ab82a7a6565b4bd70e3efcc210e3c3528` was the pre-Q496 identity and must not be reused by current checkpoints.
 - Superseded Prompt set retained for audit: `5c27688d23648e26fe5c8102da81e87ae36d57002ad2cf17650e93c7950b81b1` was the pre-Q494 identity and must not be reused by current checkpoints.
+- Term Extraction v2 contract hash: `260cf610325424ea6ef005329151a48b919db46b4a63e78c9ac2c130d1f58b63`
+- Term Extraction v2 example pack: `term-extraction-zh@2`, hash `77e9567fd7b6ca9c82f5f5f97d1b266892aef2262cc554e77c1572b4f94d1541`
+- Term Extraction v2 exact rendering hash: `33b014f0a41688b52d82177d41bf4d7e9332f011f8550f4d3004069ab15a8ceb`
 - Stage Schema manifest: `fe1f1a94582b92dee656a7c4cdb06db269859b7a5456eedb4c9f1571768bd231`
 - Render template: `fc8e3f49bd558fdd7ab2caae7be012b018381020b565d6769191e39e07b1d87a`
 - Literal Prompt fixture: `e78a06415ccff8a6c0006c640704470b7521ff3e8623730fbe48d0cc0940af28`
@@ -73,3 +77,5 @@ Q494 advances Summary Critic to `summary-critic@2`: contract hash `4a6ffcc2091d1
 - Structural ADR Q502 removes arbitrary fixture/caller `percentileRank` authority. `term-pool-finalizer@1` evals must cover exact integer frequency/distribution/heading/reader/technical signals, callout exclusion, Q250 bigram near-duplicate penalty and winner, global/tie order, 600+200 selection with bucket de-duplication, percentile endpoints/ties, complete Linked binding/index equality, hard minimum, and byte-identical repeatability. The finalizer must make zero provider, fallback, embedding, SenseNova, image, art, or 2.5D calls.
 - Corrected protocol-v3 `@2` acceptance is recorded at Runner commit `ead5f6b`. RED/GREEN coverage includes normalized table-row raw audit, closed callout markers, exact source and excluding-self Snapshot hashes, split-parent containment, singleton rejection, and sibling rejection when equal offsets hide different line/column coordinates. Independent re-review returned `Ready`; focused Runner protocol gates reached 22/22, the corrected Snapshot file 5/5, Plugin mirror 2/2, and Runner typecheck passed.
 - The Runner still has no configured push destination, so `ead5f6b` is a local durable checkpoint. The Plugin documentation branch records and pushes this acceptance without publishing ignored source or tests.
+- Term Extraction v2 is accepted at Runner commit `b5b2640`. Its shared System byte/hash remain unchanged; the User contract carries the Q496 callout rule and exact closed marker union. Fresh scoped Prompt/checkpoint/preparation/provider tests reached 37/37, and review returned `Ready` after removing the final active `term-extraction@1` interface/fixture literals. The only remaining `@1` literals are explicitly retained golden audit constants.
+- Current Term Prompt identities are Prompt set `c9302630a0099e92fe084bb963231869ef1a905204db868dcd1c9aa96a9eb44d`, contract `260cf610325424ea6ef005329151a48b919db46b4a63e78c9ac2c130d1f58b63`, example `term-extraction-zh@2` / `77e9567fd7b6ca9c82f5f5f97d1b266892aef2262cc554e77c1572b4f94d1541`, rendering `33b014f0a41688b52d82177d41bf4d7e9332f011f8550f4d3004069ab15a8ceb`, and trace `6611860f098fbef11f62603931888b5e2858611b9046c37a594a986f0598deb0`.

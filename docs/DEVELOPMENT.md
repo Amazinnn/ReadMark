@@ -280,6 +280,8 @@ TDD must lock integer score arithmetic and cross-multiplied ties before implemen
 
 Prompt ADR Q500 preserves Q384's two-message boundary during Term Extraction v2 implementation. Callout metadata rules belong to the Term stage contract in the User message; the shared System constitution must remain byte-identical. Tests must reject any implementation that changes the constitution hash or increments unrelated stage contracts.
 
+Runner commit `b5b2640` accepts this Term Extraction v2 boundary. The shared constitution remains `constitution@1` with hash `bde8c837b51b59bf7973e05511a9c4c2e39158c68c892239b613c49e65502c35`; the callout rule and closed marker union occur only in User `TASK_GOAL_AUTHORITY`. Active semantic calls and provider fixtures expose `term-extraction@2` only; `term-extraction@1` survives solely in explicitly named retained golden audit constants. Scoped Prompt/checkpoint/preparation/provider gates reached 37/37, build passed before concurrent Term Pool work began, and independent review returned `Ready` after closing the stale active-interface literal. The Runner commit remains local because no push destination is configured.
+
 Structural ADR Q501 removes the pre-Q499 Run executor's incorrect mutual-exclusion and earliest-Source cluster assumptions. Run validation must accept overlapping admitted sets while retaining exact per-cluster authority, selection-order processing, builder proposal cap three, and global final mount cap three. Repair scopes use a Snapshot-ordered unique Source union. This validator correction changes no Concept Formation Prompt byte.
 
 ### Filtered Term Pool Finalization Gate
