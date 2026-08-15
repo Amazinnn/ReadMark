@@ -225,6 +225,10 @@ Structural ADR Q505 is a blocking protocol correction discovered before Plugin o
 
 TDD order is: reject the superseded Snapshot shape and lock formula vectors; migrate the byte-identical Runner/Plugin Schema bundle and manifest; thread the derived scalar through Runner stages and checkpoint dependencies; update independent scoring and completion fixtures; then resume Plugin task orchestration. Until those gates pass, `main.ts` v3 activation remains RED and no real provider or non-text route is permitted.
 
+Q505 is accepted at Runner commit `3b67883`. The closed bundle is now `readmark-protocol-v3@3` / `protocol-v3@3`, with Schema manifest `d4b1febee41522e52192646369b3c8bdeaf3c9230a485d4c2dcc6fe835a8efb0`. Runner derives the target from final dispositions, Term Pool and Evidence Cluster independently reject a mismatched scalar, Revision validation and scoring recompute from published dispositions, and the Plugin mirror exports no target field. The fresh Runner suite reached 298/298 with build green; Plugin protocol, Source Snapshot, task export, import, and scoring focused gates reached 32/32; cross-repository Schema/vector/scorer identity reached 1/1. No real provider or non-text route was called. The Runner commit remains local because that repository has no configured push destination.
+
+The Plugin aggregate gate now stops at the retained protocol-v2 `reading-map-e2e` fixture because it imports the removed confirm/art Runner-client APIs. This is the next intentional RED replacement boundary: add the v3 orchestration/import/report E2E first, then retire the obsolete fixture and active routes. Do not restore compatibility exports.
+
 Only after the replacement report tests pass may the active v3 paths for the old renderer, layout, assets, art generation, human Attribute confirmation, activity score, and Concept unlock be removed. Existing runtime files are not cleaned.
 
 ### Verification And Stop Conditions
