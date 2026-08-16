@@ -10,14 +10,14 @@ When two documents disagree, use this order:
 2. `CURRENT.md` - volatile implementation status and the next authorized objective.
 3. `../CONTEXT.md` - the sole canonical reading-domain glossary.
 4. `ADR/2026-07-19-pre-render-semantic-network.md` - accepted protocol-v3 structural design and the complete Q001-Q383 decision ledger.
-5. `ADR/2026-07-22-semantic-prompt-contracts.md` - in-progress Prompt contracts beginning with Q384.
+5. `ADR/2026-07-22-semantic-prompt-contracts.md` - accepted Prompt contracts Q384-Q493.
 6. `ARCHITECTURE.md`, `DATA_MODEL.md`, and `DEVELOPMENT.md` - current summaries and operating instructions subordinate to the ADRs.
 7. `VERSIONING.md` and `CHANGELOG.md` - release state and chronological record; neither overrides design ADRs.
 8. `history/` and superseded ADRs - provenance only, never current execution instructions.
 
 ## Current And Historical Meaning
 
-The protocol-v3 structural design is accepted, but the plugin and Runner source still contain protocol-v2 implementation paths that have not yet been replaced. Documentation must label v3 behavior as the accepted target until implementation and verification are complete.
+The protocol-v3 structural and Prompt designs are accepted, and the active Plugin/Runner semantic paths implement v3 through the synthetic fake-provider acceptance boundary. Real MiniMax-M3 execution and manual Obsidian acceptance remain explicitly separate from this implemented/fake-verified state.
 
 The exact 2026-07-19 beta.3 handoff and the Runner's former protocol-v2 README are preserved in history with their original SHA-256 hashes. The old handoff path remains as a redirect so earlier conversation prompts fail safely instead of executing obsolete recovery instructions.
 
